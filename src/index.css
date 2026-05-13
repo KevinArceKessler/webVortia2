@@ -1,0 +1,271 @@
+@import "tailwindcss";
+
+/* ============================================
+   TOKENS DE DISEÑO — VORTIA 2025
+   Todos los colores y variables de la marca
+   ============================================ */
+
+:root {
+  /* --- Verdes de marca --- */
+  --neon-ai: #c1ff72;
+  --aura-light: #f1fea3;
+  --verde-pastel: #b7f380;
+  --verde-brillante: #94e05a;
+
+  /* --- Azules nuevos --- */
+  --azul-cielo: #a8d8f0;
+  --azul-medio: #5ba8d4;
+
+  /* --- Grises y oscuros --- */
+  --base-nocturna: #4b4b4b;
+  --trama-media: #727376;
+  --gris-claro: #cecece;
+
+  /* --- Blanco --- */
+  --blanco: #ffffff;
+
+  /* --- Fondo principal oscuro del hero --- */
+  --dark-bg: #2e2e2e;
+  --dark-bg-alt: #1e1e1e;
+
+  /* --- Tipografía --- */
+  --font-main: 'Montserrat', sans-serif;
+
+  /* --- Espaciados base --- */
+  --section-padding: 5rem 1.5rem;
+  --section-padding-mobile: 3rem 1rem;
+}
+
+/* ============================================
+   RESET Y BASE
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--blanco);
+  color: var(--base-nocturna);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   UTILIDADES GLOBALES DE VORTIA
+   ============================================ */
+
+/* Sección genérica */
+.section {
+  padding: var(--section-padding);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--section-padding-mobile);
+  }
+}
+
+/* Contenedor centrado */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Botón principal */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--neon-ai);
+  color: var(--base-nocturna);
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary:hover {
+  background-color: var(--verde-brillante);
+  transform: translateY(-1px);
+}
+
+/* Botón secundario (outline) */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: var(--blanco);
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  border: 2px solid var(--blanco);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--blanco);
+  color: var(--base-nocturna);
+}
+
+/* Botón azul */
+.btn-blue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--azul-medio);
+  color: var(--blanco);
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-blue:hover {
+  background-color: #4a90c0;
+  transform: translateY(-1px);
+}
+
+/* Título de sección */
+.section-title {
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--base-nocturna);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.section-title.light {
+  color: var(--blanco);
+}
+
+/* Subtítulo de sección */
+.section-subtitle {
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--trama-media);
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+.section-subtitle.light {
+  color: var(--gris-claro);
+}
+
+/* Etiqueta de sección (el texto pequeño de arriba) */
+.section-label {
+  display: inline-block;
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--verde-brillante);
+  margin-bottom: 0.75rem;
+}
+
+/* Línea decorativa de la marca */
+.brand-line {
+  width: 48px;
+  height: 3px;
+  background-color: var(--neon-ai);
+  border-radius: 2px;
+  margin: 1rem 0 2rem;
+}
+
+/* Patrón geométrico de fondo (del manual de marca) */
+.pattern-bg {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 8px,
+      rgba(193, 255, 114, 0.04) 8px,
+      rgba(193, 255, 114, 0.04) 10px
+    );
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--dark-bg-alt);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--neon-ai);
+  border-radius: 3px;
+}
+
+/* Selección de texto */
+::selection {
+  background-color: var(--neon-ai);
+  color: var(--base-nocturna);
+}
+
+/* ============================================
+   HEADER — RESPONSIVE
+   ============================================ */
+
+/* Desktop: mostramos nav y CTA, ocultamos hamburguesa */
+@media (min-width: 769px) {
+  header nav a {
+    display: inline-flex !important;
+  }
+  header a[aria-label="Chateá con nosotros por WhatsApp"] {
+    display: inline-flex !important;
+  }
+  /* Ocultamos el botón hamburguesa en desktop */
+  header button[aria-label="Abrir menú"],
+  header button[aria-label="Cerrar menú"] {
+    display: none !important;
+  }
+}
+
+/* Mobile: ocultamos nav desktop */
+@media (max-width: 768px) {
+  header nav {
+    display: none !important;
+  }
+}
+
+/* ============================================
+   NOSOTROS — RESPONSIVE
+   ============================================ */
+
+/* En mobile el grid pasa a una columna */
+@media (max-width: 768px) {
+  #nosotros .container,
+  #nosotros > div > div:first-of-type {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+    padding: 3rem 1.25rem 2.5rem !important;
+  }
+}
