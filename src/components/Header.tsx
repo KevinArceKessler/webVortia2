@@ -52,7 +52,7 @@ export default function Header() {
                   font-family: Montserrat, sans-serif;
                   font-weight: 900;
                   font-size: 1.5rem;
-                  color: #c1ff72;
+                  color: #B7F38A;
                   letter-spacing: 0.05em;
                 `
                 t.parentNode?.appendChild(span)
@@ -68,7 +68,7 @@ export default function Header() {
                 href={link.href}
                 style={styles.navLink}
                 onMouseEnter={(e) => {
-                  ;(e.currentTarget as HTMLAnchorElement).style.color = '#c1ff72'
+                  ;(e.currentTarget as HTMLAnchorElement).style.color = '#B7F38A'
                 }}
                 onMouseLeave={(e) => {
                   ;(e.currentTarget as HTMLAnchorElement).style.color = '#cecece'
@@ -86,11 +86,11 @@ export default function Header() {
             rel="noopener noreferrer"
             style={styles.cta}
             onMouseEnter={(e) => {
-              ;(e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#94e05a'
+              ;(e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#9CD468'
               ;(e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-1px)'
             }}
             onMouseLeave={(e) => {
-              ;(e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#c1ff72'
+              ;(e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#B7F38A'
               ;(e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)'
             }}
             aria-label="Chateá con nosotros por WhatsApp"
@@ -107,9 +107,9 @@ export default function Header() {
             aria-expanded={menuOpen}
           >
             {menuOpen ? (
-              <X size={24} color="#c1ff72" />
+              <X size={24} color="#B7F38A" />
             ) : (
-              <Menu size={24} color="#c1ff72" />
+              <Menu size={24} color="#B7F38A" />
             )}
           </button>
         </div>
@@ -125,7 +125,7 @@ export default function Header() {
               style={styles.drawerLink}
               onClick={handleNavClick}
               onMouseEnter={(e) => {
-                ;(e.currentTarget as HTMLAnchorElement).style.color = '#c1ff72'
+                ;(e.currentTarget as HTMLAnchorElement).style.color = '#B7F38A'
                 ;(e.currentTarget as HTMLAnchorElement).style.paddingLeft = '1.5rem'
               }}
               onMouseLeave={(e) => {
@@ -176,9 +176,9 @@ const styles = {
     right: 0,
     zIndex: 1000,
     transition: 'background-color 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease',
-    backgroundColor: scrolled ? 'rgba(30, 30, 30, 0.95)' : 'transparent',
+    backgroundColor: scrolled ? 'rgba(68, 68, 68, 0.95)' : 'transparent',
     backdropFilter: scrolled ? 'blur(12px)' : 'none',
-    boxShadow: scrolled ? '0 1px 0 rgba(193, 255, 114, 0.15)' : 'none',
+    boxShadow: scrolled ? '0 1px 0 rgba(183, 243, 138, 0.15)' : 'none',
   }),
 
   inner: {
@@ -232,8 +232,8 @@ const styles = {
     display: 'none', // se muestra con media query abajo
     alignItems: 'center',
     gap: '0.4rem',
-    backgroundColor: '#c1ff72',
-    color: '#2e2e2e',
+    backgroundColor: '#B7F38A',
+    color: '#444444',
     fontFamily: 'Montserrat, sans-serif',
     fontWeight: 700,
     fontSize: '0.85rem',
@@ -265,7 +265,7 @@ const styles = {
     right: 0,
     bottom: 0,
     zIndex: 999,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: '#444444',
     transform: open ? 'translateX(0)' : 'translateX(-100%)',
     transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
     overflowY: 'auto',
@@ -294,8 +294,8 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     gap: '0.5rem',
-    backgroundColor: '#c1ff72',
-    color: '#2e2e2e',
+    backgroundColor: '#B7F38A',
+    color: '#444444',
     fontFamily: 'Montserrat, sans-serif',
     fontWeight: 700,
     fontSize: '1rem',

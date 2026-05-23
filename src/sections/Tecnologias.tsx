@@ -19,10 +19,10 @@ const TECHS = [
 const TECHS_LOOP = [...TECHS, ...TECHS]
 
 const STATS = [
-  { number: '99.9%', label: 'Uptime garantizado', color: '#c1ff72' },
-  { number: '< 4 sem', label: 'Tiempo de implementación', color: '#a8d8f0' },
-  { number: '24/7', label: 'Monitoreo activo', color: '#c1ff72' },
-  { number: '100%', label: 'Proyectos entregados', color: '#a8d8f0' },
+  { number: '99.9%', label: 'Uptime garantizado', color: '#B7F38A' },
+  { number: '< 4 sem', label: 'Tiempo de implementación', color: '#9CD468' },
+  { number: '24/7', label: 'Monitoreo activo', color: '#B7F38A' },
+  { number: '100%', label: 'Proyectos entregados', color: '#9CD468' },
 ]
 
 export default function Tecnologias() {
@@ -72,7 +72,7 @@ export default function Tecnologias() {
             {TECHS_LOOP.map((tech, i) => (
               <div key={i} style={{
                 ...styles.techChip,
-                borderColor: i % 3 === 0 ? 'rgba(193,255,114,0.2)' : i % 3 === 1 ? 'rgba(91,168,212,0.25)' : 'rgba(168,216,240,0.2)',
+                borderColor: i % 2 === 0 ? 'rgba(183,243,138,0.2)' : 'rgba(91,168,212,0.2)',
               }}>
                 <span style={styles.techIcon}>{tech.icon}</span>
                 <span style={styles.techName}>{tech.name}</span>
@@ -106,23 +106,23 @@ export default function Tecnologias() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  section: { backgroundColor: '#1e1e1e', padding: '5rem 0 4rem', overflow: 'hidden' },
+  section: { backgroundColor: '#444444', padding: '5rem 0 4rem', overflow: 'hidden' },
   headerWrap: { maxWidth: '700px', margin: '0 auto 3rem', textAlign: 'center', padding: '0 1.5rem' },
-  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#5ba8d4', marginBottom: '0.75rem' },
+  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#5BA8D4', marginBottom: '0.75rem' },
   title: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: '#ffffff', lineHeight: 1.15, margin: '0 0 1rem', letterSpacing: '-0.02em' },
-  titleAccent: { color: '#a8d8f0' },
-  brandLine: { width: '48px', height: '3px', background: 'linear-gradient(to right, #5ba8d4, #c1ff72)', borderRadius: '2px', margin: '0 auto 1.25rem', transformOrigin: 'left' },
+  titleAccent: { color: '#5BA8D4' },
+  brandLine: { width: '48px', height: '3px', background: 'linear-gradient(to right, #5BA8D4, #B7F38A)', borderRadius: '2px', margin: '0 auto 1.25rem', transformOrigin: 'left' },
   subtitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '1rem', color: '#727376', lineHeight: 1.75, margin: 0 },
   carouselWrapper: { position: 'relative', width: '100%', overflow: 'hidden', marginBottom: '3.5rem', padding: '0.75rem 0' },
-  fadeLeft: { position: 'absolute', left: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to right, #1e1e1e, transparent)', zIndex: 2, pointerEvents: 'none' },
-  fadeRight: { position: 'absolute', right: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to left, #1e1e1e, transparent)', zIndex: 2, pointerEvents: 'none' },
+  fadeLeft: { position: 'absolute', left: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to right, #444444, transparent)', zIndex: 2, pointerEvents: 'none' },
+  fadeRight: { position: 'absolute', right: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to left, #444444, transparent)', zIndex: 2, pointerEvents: 'none' },
   carouselTrack: { overflow: 'hidden' },
   carouselInner: { display: 'flex', gap: '1rem', width: 'max-content', animation: 'scroll-right 22s linear infinite' },
   techChip: { display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0.65rem 1.25rem', backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid', borderRadius: '999px', flexShrink: 0, transition: 'border-color 0.2s ease' },
   techIcon: { fontSize: '1.1rem' },
-  techName: { fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.85rem', color: '#cecece', whiteSpace: 'nowrap' },
+  techName: { fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.85rem', color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' },
   statsGrid: { maxWidth: '900px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1px', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '16px', overflow: 'hidden', padding: '0 1.5rem' },
-  statCard: { display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 1rem', gap: '0.4rem', backgroundColor: '#1e1e1e' },
+  statCard: { display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 1rem', gap: '0.4rem', backgroundColor: '#444444' },
   statNumber: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', letterSpacing: '-0.02em' },
   statLabel: { fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.8rem', color: '#727376', textAlign: 'center' },
 }

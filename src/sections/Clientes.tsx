@@ -184,7 +184,7 @@ export default function Clientes() {
             onClick={() => openModal(t)}
             onMouseEnter={(e) => {
               const el = e.currentTarget as HTMLButtonElement
-              el.style.borderColor = '#c1ff72'
+              el.style.borderColor = '#B7F38A'
               el.style.transform = 'translateY(-4px)'
               el.style.boxShadow = '0 16px 48px rgba(0,0,0,0.08)'
             }}
@@ -195,7 +195,7 @@ export default function Clientes() {
               el.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)'
             }}
           >
-            <Quote size={24} color="#c1ff72" style={{ flexShrink: 0 }} />
+            <Quote size={24} color="#B7F38A" style={{ flexShrink: 0 }} />
             <p style={styles.testimoniofrase}>"{t.frase}"</p>
             <div style={styles.testimonioAutor}>
               <div style={styles.testimonioAvatar}>
@@ -238,7 +238,7 @@ export default function Clientes() {
                 </button>
               </div>
               <div style={styles.modalQuote}>
-                <Quote size={20} color="#c1ff72" />
+                <Quote size={20} color="#B7F38A" />
                 <p style={styles.modalFrase}>"{selected.frase}"</p>
               </div>
               <div style={styles.modalCaso}>
@@ -257,8 +257,8 @@ export default function Clientes() {
                 ))}
               </div>
               <a href="#contacto" style={styles.modalCta} onClick={closeModal}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#94e05a' }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#c1ff72' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#9CD468' }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#B7F38A' }}
               >
                 Quiero resultados similares
               </a>
@@ -280,13 +280,13 @@ export default function Clientes() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  section: { backgroundColor: '#f8f9fa', padding: '5rem 0 4rem', position: 'relative', overflow: 'hidden' },
-  headerWrap: { maxWidth: '700px', margin: '0 auto 3rem', textAlign: 'center', padding: '0 1.5rem' },
-  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#94e05a', marginBottom: '0.75rem' },
-  title: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: '#2e2e2e', lineHeight: 1.15, margin: '0 0 1rem', letterSpacing: '-0.02em' },
-  titleAccent: { color: '#94e05a' },
-  brandLine: { width: '48px', height: '3px', background: 'linear-gradient(to right, #c1ff72, #5ba8d4)', borderRadius: '2px', margin: '0 auto 1.25rem', transformOrigin: 'left' },
-  subtitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '1rem', color: '#727376', lineHeight: 1.75, margin: 0 },
+  section: { backgroundColor: '#ffffff', padding: '6rem 0 5rem', position: 'relative', overflow: 'hidden' },
+  headerWrap: { maxWidth: '860px', margin: '0 auto 4rem', textAlign: 'center', padding: '0 1.5rem' },
+  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.92rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9CD468', marginBottom: '1rem' },
+  title: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(2.2rem, 5vw, 3.8rem)', color: '#444444', lineHeight: 1.1, margin: '0 0 1.25rem', letterSpacing: '-0.03em' },
+  titleAccent: { color: '#9CD468' },
+  brandLine: { width: '56px', height: '3px', background: 'linear-gradient(to right, #B7F38A, #5BA8D4)', borderRadius: '2px', margin: '0 auto 1.5rem', transformOrigin: 'left' },
+  subtitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: 'clamp(1rem, 1.8vw, 1.15rem)', color: '#727376', lineHeight: 1.8, margin: 0, maxWidth: '620px', marginLeft: 'auto', marginRight: 'auto' },
 
   // Carrusel
   carouselWrapper: { position: 'relative', width: '100%', overflow: 'hidden', marginBottom: '4rem', padding: '1rem 0' },
@@ -300,40 +300,40 @@ const styles: Record<string, React.CSSProperties> = {
     animation: 'scroll-left 28s linear infinite',
   },
   carouselItem: { display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.85rem 1.25rem', backgroundColor: '#ffffff', border: '1px solid #eeeeee', borderRadius: '12px', whiteSpace: 'nowrap', flexShrink: 0 },
-  carouselAvatar: { width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#1e1e1e', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
-  carouselInitials: { fontFamily: 'Montserrat, sans-serif', fontWeight: 800, fontSize: '0.75rem', color: '#c1ff72' },
-  carouselName: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.82rem', color: '#2e2e2e', margin: 0 },
+  carouselAvatar: { width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#444444', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+  carouselInitials: { fontFamily: 'Montserrat, sans-serif', fontWeight: 800, fontSize: '0.75rem', color: '#B7F38A' },
+  carouselName: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.82rem', color: '#444444', margin: 0 },
   carouselIndustry: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '0.68rem', color: '#9ca3af', margin: 0 },
 
   // Testimonios
   testimoniosHeader: { maxWidth: '700px', margin: '0 auto 2rem', textAlign: 'center', padding: '0 1.5rem' },
-  testimoniosTitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 800, fontSize: 'clamp(1.2rem, 2.5vw, 1.6rem)', color: '#2e2e2e', margin: '0 0 0.5rem' },
+  testimoniosTitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 800, fontSize: 'clamp(1.2rem, 2.5vw, 1.6rem)', color: '#444444', margin: '0 0 0.5rem' },
   testimoniosSubtitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '0.9rem', color: '#9ca3af', margin: 0 },
   testimoniosGrid: { maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.25rem', padding: '0 1.5rem' },
   testimonioCard: { display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1.5rem', backgroundColor: '#ffffff', border: '1px solid #eeeeee', borderRadius: '16px', cursor: 'pointer', textAlign: 'left', transition: 'all 0.25s ease', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', fontFamily: 'Montserrat, sans-serif' },
-  testimoniofrase: { fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.9rem', color: '#2e2e2e', lineHeight: 1.65, margin: 0, flex: 1 },
+  testimoniofrase: { fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.9rem', color: '#444444', lineHeight: 1.65, margin: 0, flex: 1 },
   testimonioAutor: { display: 'flex', alignItems: 'center', gap: '0.75rem' },
-  testimonioAvatar: { width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#1e1e1e', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
-  testimonioIniciales: { fontFamily: 'Montserrat, sans-serif', fontWeight: 800, fontSize: '0.75rem', color: '#c1ff72' },
-  testimonioNombre: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.85rem', color: '#2e2e2e', margin: 0 },
+  testimonioAvatar: { width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#444444', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+  testimonioIniciales: { fontFamily: 'Montserrat, sans-serif', fontWeight: 800, fontSize: '0.75rem', color: '#B7F38A' },
+  testimonioNombre: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.85rem', color: '#444444', margin: 0 },
   testimonioCargo: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '0.75rem', color: '#9ca3af', margin: 0 },
-  verCaso: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.78rem', color: '#94e05a' },
+  verCaso: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.78rem', color: '#9CD468' },
 
   // Modal
   overlay: { position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 2000, backdropFilter: 'blur(4px)' },
   modal: { position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 2001, backgroundColor: '#ffffff', borderRadius: '20px', padding: '2rem', width: '90%', maxWidth: '560px', maxHeight: '90vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1.5rem', boxShadow: '0 24px 80px rgba(0,0,0,0.2)' },
   modalHeader: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
   modalAutor: { display: 'flex', alignItems: 'center', gap: '0.75rem' },
-  modalAvatar: { width: '48px', height: '48px', borderRadius: '50%', backgroundColor: '#1e1e1e', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
-  modalNombre: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '1rem', color: '#2e2e2e', margin: 0 },
+  modalAvatar: { width: '48px', height: '48px', borderRadius: '50%', backgroundColor: '#444444', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+  modalNombre: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '1rem', color: '#444444', margin: 0 },
   modalEmpresa: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '0.8rem', color: '#9ca3af', margin: 0 },
   closeBtn: { background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' },
-  modalQuote: { display: 'flex', gap: '0.75rem', padding: '1.25rem', backgroundColor: '#f8f9fa', borderRadius: '12px', borderLeft: '3px solid #c1ff72' },
-  modalFrase: { fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.95rem', color: '#2e2e2e', lineHeight: 1.7, margin: 0 },
+  modalQuote: { display: 'flex', gap: '0.75rem', padding: '1.25rem', backgroundColor: '#ffffff', borderRadius: '12px', borderLeft: '3px solid #B7F38A' },
+  modalFrase: { fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.95rem', color: '#444444', lineHeight: 1.7, margin: 0 },
   modalCaso: { display: 'flex', flexDirection: 'column', gap: '1rem' },
   casoItem: { display: 'flex', gap: '1rem', alignItems: 'flex-start' },
   casoIcon: { width: '36px', height: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem', flexShrink: 0 },
-  casoLabel: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.85rem', color: '#2e2e2e', margin: '0 0 0.3rem' },
+  casoLabel: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.85rem', color: '#444444', margin: '0 0 0.3rem' },
   casoText: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '0.875rem', color: '#727376', lineHeight: 1.65, margin: 0 },
-  modalCta: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#c1ff72', color: '#1e1e1e', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.9rem', padding: '0.85rem 1.5rem', borderRadius: '8px', textDecoration: 'none', transition: 'background-color 0.2s ease' },
+  modalCta: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#B7F38A', color: '#444444', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.9rem', padding: '0.85rem 1.5rem', borderRadius: '8px', textDecoration: 'none', transition: 'background-color 0.2s ease' },
 }

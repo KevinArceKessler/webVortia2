@@ -7,26 +7,22 @@
 
 :root {
   /* --- Verdes de marca --- */
-  --neon-ai: #c1ff72;
-  --aura-light: #f1fea3;
-  --verde-pastel: #b7f380;
-  --verde-brillante: #94e05a;
+  --neon-ai: #B7F38A;
+  --verde-pastel: #B7F38A;
+  --verde-brillante: #9CD468;
 
-  /* --- Azules nuevos --- */
-  --azul-cielo: #a8d8f0;
-  --azul-medio: #5ba8d4;
+  /* --- Azul --- */
+  --azul-medio: #5BA8D4;
 
   /* --- Grises y oscuros --- */
-  --base-nocturna: #4b4b4b;
   --trama-media: #727376;
-  --gris-claro: #cecece;
 
   /* --- Blanco --- */
   --blanco: #ffffff;
 
-  /* --- Fondo principal oscuro del hero --- */
-  --dark-bg: #2e2e2e;
-  --dark-bg-alt: #1e1e1e;
+  /* --- Fondos oscuros --- */
+  --dark-bg: #444444;
+  --dark-bg-alt: #333333;
 
   /* --- Tipografía --- */
   --font-main: 'Montserrat', sans-serif;
@@ -54,7 +50,7 @@ html {
 body {
   font-family: var(--font-main);
   background-color: var(--blanco);
-  color: var(--base-nocturna);
+  color: var(--dark-bg);
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -87,7 +83,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   background-color: var(--neon-ai);
-  color: var(--base-nocturna);
+  color: var(--dark-bg);
   font-family: var(--font-main);
   font-weight: 700;
   font-size: 0.95rem;
@@ -125,7 +121,7 @@ body {
 
 .btn-secondary:hover {
   background-color: var(--blanco);
-  color: var(--base-nocturna);
+  color: var(--dark-bg);
 }
 
 /* Botón azul */
@@ -156,7 +152,7 @@ body {
   font-family: var(--font-main);
   font-weight: 700;
   font-size: clamp(1.8rem, 4vw, 2.8rem);
-  color: var(--base-nocturna);
+  color: var(--dark-bg);
   line-height: 1.2;
   margin-bottom: 1rem;
 }
@@ -176,7 +172,7 @@ body {
 }
 
 .section-subtitle.light {
-  color: var(--gris-claro);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 /* Etiqueta de sección (el texto pequeño de arriba) */
@@ -200,15 +196,22 @@ body {
   margin: 1rem 0 2rem;
 }
 
-/* Patrón geométrico de fondo (del manual de marca) */
+/* Elemento de marca: Grilla */
 .pattern-bg {
   background-image:
     repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 8px,
-      rgba(193, 255, 114, 0.04) 8px,
-      rgba(193, 255, 114, 0.04) 10px
+      0deg,
+      rgba(255,255,255,0.025) 0px,
+      transparent 1px,
+      transparent 40px,
+      rgba(255,255,255,0.025) 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.025) 0px,
+      transparent 1px,
+      transparent 40px,
+      rgba(255,255,255,0.025) 40px
     );
 }
 
@@ -227,7 +230,7 @@ body {
 /* Selección de texto */
 ::selection {
   background-color: var(--neon-ai);
-  color: var(--base-nocturna);
+  color: var(--dark-bg);
 }
 
 /* ============================================

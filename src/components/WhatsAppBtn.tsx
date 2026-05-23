@@ -46,7 +46,7 @@ const styles: Record<string, React.CSSProperties> = {
   tooltip: {
     position: 'absolute',
     right: '68px',
-    backgroundColor: '#1e1e1e',
+    backgroundColor: '#444444',
     color: '#ffffff',
     fontFamily: 'Montserrat, sans-serif',
     fontWeight: 600,

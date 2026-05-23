@@ -2,9 +2,11 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { VALUES } from '../data/brand'
 
-// Colores de ícono por índice: verde, azul, verde
-const iconBgs = ['#f0fdf0', '#eff8ff', '#f0fdf0']
-const iconBorders = ['rgba(193,255,114,0.3)', 'rgba(91,168,212,0.3)', 'rgba(193,255,114,0.3)']
+const valueColors = [
+  { bg: 'linear-gradient(135deg, #2a5a70 0%, #5BA8D4 100%)', text: '#ffffff' },
+  { bg: 'linear-gradient(135deg, #2a5a70 0%, #5BA8D4 100%)', text: '#ffffff' },
+  { bg: 'linear-gradient(135deg, #2a5a70 0%, #5BA8D4 100%)', text: '#ffffff' },
+]
 
 export default function Nosotros() {
   const ref = useRef(null)
@@ -54,8 +56,8 @@ export default function Nosotros() {
           <motion.a href="#contacto" style={styles.cta}
             initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.55 }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#94e05a'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)' }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#c1ff72'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)' }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.opacity = '0.85'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)' }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.opacity = '1'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)' }}
           >Conocé al equipo</motion.a>
         </div>
 
@@ -67,9 +69,9 @@ export default function Nosotros() {
               transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 + i * 0.15 }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLDivElement
-                el.style.borderColor = i === 1 ? '#5ba8d4' : '#c1ff72'
+                el.style.borderColor = '#5BA8D4'
                 el.style.transform = 'translateY(-4px)'
-                el.style.boxShadow = i === 1 ? '0 12px 40px rgba(91,168,212,0.1)' : '0 12px 40px rgba(193,255,114,0.08)'
+                el.style.boxShadow = '0 12px 40px rgba(91,168,212,0.12)'
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLDivElement
@@ -78,14 +80,13 @@ export default function Nosotros() {
                 el.style.boxShadow = 'none'
               }}
             >
-              <div style={{ ...styles.valueIcon, backgroundColor: iconBgs[i], border: `1px solid ${iconBorders[i]}` }}>
-                <span style={{ fontSize: '1.5rem' }}>{value.icon}</span>
+              <div style={{ ...styles.valueBadge, background: valueColors[i].bg }}>
+                <span style={{ ...styles.valueBadgeNum, color: valueColors[i].text }}>0{i + 1}</span>
               </div>
               <div style={styles.valueText}>
-                <h3 style={{ ...styles.valueTitle, color: i === 1 ? '#2e4a5e' : '#2e2e2e' }}>{value.title}</h3>
+                <h3 style={styles.valueTitle}>{value.title}</h3>
                 <p style={styles.valueDesc}>{value.description}</p>
               </div>
-              <span style={{ ...styles.valueNumber, color: i === 1 ? 'rgba(91,168,212,0.2)' : 'rgba(193,255,114,0.2)' }}>0{i + 1}</span>
             </motion.div>
           ))}
         </div>
@@ -111,25 +112,25 @@ export default function Nosotros() {
 
 const styles: Record<string, React.CSSProperties> = {
   section: { position: 'relative', backgroundColor: '#ffffff', overflow: 'hidden', paddingBottom: 0 },
-  sideDecor: { position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #c1ff72, #5ba8d4, #a8d8f0, transparent)', opacity: 0.7 },
+  sideDecor: { position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #B7F38A, #5BA8D4, transparent)', opacity: 0.7 },
   container: { maxWidth: '1200px', margin: '0 auto', padding: '5rem 1.5rem 4rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' },
   textCol: { display: 'flex', flexDirection: 'column', alignItems: 'flex-start' },
-  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#94e05a', marginBottom: '0.75rem' },
-  title: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: '#2e2e2e', lineHeight: 1.15, margin: 0, letterSpacing: '-0.02em' },
-  titleAccent: { color: '#4b4b4b' },
-  brandLine: { width: '48px', height: '3px', background: 'linear-gradient(to right, #c1ff72, #5ba8d4)', borderRadius: '2px', margin: '1.25rem 0 1.5rem' },
+  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#5BA8D4', marginBottom: '0.75rem' },
+  title: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: '#444444', lineHeight: 1.15, margin: 0, letterSpacing: '-0.02em' },
+  titleAccent: { color: '#444444' },
+  brandLine: { width: '48px', height: '3px', background: 'linear-gradient(to right, #B7F38A, #5BA8D4)', borderRadius: '2px', margin: '1.25rem 0 1.5rem' },
   body: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '1rem', color: '#727376', lineHeight: 1.8, margin: 0, maxWidth: '480px' },
-  cta: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', backgroundColor: '#c1ff72', color: '#1e1e1e', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.9rem', padding: '0.8rem 1.75rem', borderRadius: '8px', textDecoration: 'none', marginTop: '2rem', transition: 'background-color 0.2s ease, transform 0.2s ease' },
+  cta: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'linear-gradient(135deg, #2a5a70 0%, #5BA8D4 100%)', color: '#ffffff', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.9rem', padding: '0.8rem 1.75rem', borderRadius: '8px', textDecoration: 'none', marginTop: '2rem', transition: 'opacity 0.2s ease, transform 0.2s ease' },
   valuesCol: { display: 'flex', flexDirection: 'column', gap: '1rem' },
   valueCard: { position: 'relative', display: 'flex', alignItems: 'flex-start', gap: '1rem', padding: '1.5rem', backgroundColor: '#fafafa', border: '1px solid #eeeeee', borderRadius: '12px', cursor: 'default', transition: 'border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease' },
-  valueIcon: { flexShrink: 0, width: '44px', height: '44px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+  valueBadge: { flexShrink: 0, width: '44px', height: '44px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+  valueBadgeNum: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: '0.9rem' },
   valueText: { flex: 1 },
   valueTitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.95rem', margin: '0 0 0.4rem' },
   valueDesc: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '0.87rem', color: '#727376', lineHeight: 1.65, margin: 0 },
-  valueNumber: { position: 'absolute', top: '1rem', right: '1.25rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em' },
-  highlight: { backgroundColor: '#1e1e1e', padding: '3rem 1.5rem' },
+  highlight: { backgroundColor: '#444444', padding: '3rem 1.5rem' },
   highlightInner: { maxWidth: '700px', margin: '0 auto', textAlign: 'center' },
   highlightText: { fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: 'clamp(1rem, 2.5vw, 1.3rem)', color: '#ffffff', lineHeight: 1.7, margin: '0 0 0.75rem' },
-  highlightAccent: { color: '#5ba8d4', fontSize: '1.5em', lineHeight: 0, verticalAlign: 'middle' },
-  highlightAuthor: { fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.85rem', color: '#727376', margin: 0, letterSpacing: '0.05em' },
+  highlightAccent: { color: '#ffffff', fontSize: '1.5em', lineHeight: 0, verticalAlign: 'middle' },
+  highlightAuthor: { fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.85rem', color: '#B7F38A', margin: 0, letterSpacing: '0.05em' },
 }

@@ -1,7 +1,9 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { PRODUCTS } from '../data/brand'
-import { Check, ArrowRight, MessageCircle } from 'lucide-react'
+import { Check, ArrowRight, MessageCircle, Send, Layers, Code2 } from 'lucide-react'
+
+const TAB_ICONS = [MessageCircle, Send, Layers, Code2]
 
 export default function Productos() {
   const ref = useRef(null)
@@ -55,16 +57,20 @@ export default function Productos() {
         initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, delay: 0.35 }}
       >
-        {PRODUCTS.map((p, i) => (
-          <button key={p.id} onClick={() => setActiveTab(i)}
-            style={{ ...styles.tab, ...(activeTab === i ? styles.tabActive : {}) }}
-            onMouseEnter={(e) => { if (activeTab !== i) { (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#f0fdf0'; (e.currentTarget as HTMLButtonElement).style.borderColor = '#c1ff72' } }}
-            onMouseLeave={(e) => { if (activeTab !== i) { (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'transparent'; (e.currentTarget as HTMLButtonElement).style.borderColor = '#e5e5e5' } }}
-          >
-            <span style={styles.tabEmoji}>{p.emoji}</span>
-            <span style={styles.tabName}>{isMobile ? '' : p.name}</span>
-          </button>
-        ))}
+        {PRODUCTS.map((p, i) => {
+          const Icon = TAB_ICONS[i]
+          const isActive = activeTab === i
+          return (
+            <button key={p.id} onClick={() => setActiveTab(i)}
+              style={{ ...styles.tab, ...(isActive ? styles.tabActive : {}) }}
+              onMouseEnter={(e) => { if (!isActive) { (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'rgba(91,168,212,0.06)'; (e.currentTarget as HTMLButtonElement).style.borderColor = '#5BA8D4' } }}
+              onMouseLeave={(e) => { if (!isActive) { (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'transparent'; (e.currentTarget as HTMLButtonElement).style.borderColor = '#e5e5e5' } }}
+            >
+              <Icon size={17} color={isActive ? '#B7F38A' : '#5BA8D4'} strokeWidth={2} />
+              <span style={styles.tabName}>{isMobile ? '' : p.name}</span>
+            </button>
+          )
+        })}
       </motion.div>
 
       {/* Panel */}
@@ -76,7 +82,7 @@ export default function Productos() {
         {/* Columna info */}
         <div style={styles.panelLeft}>
           <div style={styles.productBadge}>
-            <span style={{ fontSize: '1.8rem' }}>{product.emoji}</span>
+            {(() => { const Icon = TAB_ICONS[activeTab]; return <Icon size={32} color="#5BA8D4" strokeWidth={1.5} /> })()}
             <div>
               <p style={styles.productLabel}>Producto Vortia</p>
               <h3 style={styles.productName}>{product.name}</h3>
@@ -89,7 +95,7 @@ export default function Productos() {
           <ul style={styles.featureList}>
             {product.features.map((f, i) => (
               <li key={i} style={styles.featureItem}>
-                <span style={styles.featureCheck}><Check size={13} color="#1e1e1e" strokeWidth={3} /></span>
+                <span style={styles.featureCheck}><Check size={13} color="#444444" strokeWidth={3} /></span>
                 <span style={styles.featureText}>{f}</span>
               </li>
             ))}
@@ -97,14 +103,14 @@ export default function Productos() {
 
           <div style={styles.panelCtas}>
             <a href={product.demoUrl} target="_blank" rel="noopener noreferrer" style={styles.ctaPrimary}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#94e05a'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)' }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#c1ff72'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)' }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#9CD468'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#B7F38A'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)' }}
             >
               <MessageCircle size={16} /> Ver demo
             </a>
             <a href="#contacto" style={styles.ctaSecondary}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#1e1e1e'; (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff' }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.color = '#1e1e1e' }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#444444'; (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.color = '#444444' }}
             >
               Quiero más info <ArrowRight size={15} />
             </a>
@@ -141,7 +147,7 @@ export default function Productos() {
       <div style={styles.mobileNav}>
         {PRODUCTS.map((_, i) => (
           <button key={i} onClick={() => setActiveTab(i)}
-            style={{ ...styles.mobileDot, backgroundColor: activeTab === i ? '#c1ff72' : '#e5e5e5', transform: activeTab === i ? 'scale(1.3)' : 'scale(1)' }}
+            style={{ ...styles.mobileDot, backgroundColor: activeTab === i ? '#B7F38A' : '#e5e5e5', transform: activeTab === i ? 'scale(1.3)' : 'scale(1)' }}
             aria-label={`Ver producto ${i + 1}`}
           />
         ))}
@@ -163,7 +169,7 @@ function InboxMock({ color }: { color: string }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
       {messages.map((m, i) => (
         <div key={i} style={{ display: 'flex', justifyContent: m.from === 'cliente' ? 'flex-start' : 'flex-end' }}>
-          <div style={{ maxWidth: '75%', padding: '0.5rem 0.75rem', borderRadius: m.from === 'cliente' ? '0 12px 12px 12px' : '12px 0 12px 12px', backgroundColor: m.from === 'cliente' ? '#f0f0f0' : color, color: m.from === 'cliente' ? '#333' : '#1e1e1e', fontSize: '0.75rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 500, lineHeight: 1.4 }}>
+          <div style={{ maxWidth: '75%', padding: '0.5rem 0.75rem', borderRadius: m.from === 'cliente' ? '0 12px 12px 12px' : '12px 0 12px 12px', backgroundColor: m.from === 'cliente' ? '#f0f0f0' : color, color: m.from === 'cliente' ? '#333' : '#444444', fontSize: '0.75rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 500, lineHeight: 1.4 }}>
             {m.text}
             <div style={{ fontSize: '0.6rem', opacity: 0.6, marginTop: '0.2rem', textAlign: 'right' }}>{m.time}</div>
           </div>
@@ -188,11 +194,11 @@ function SenderMock({ color }: { color: string }) {
       {campaigns.map((c, i) => (
         <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.6rem 0.75rem', backgroundColor: '#f8f8f8', borderRadius: '8px', border: '1px solid #eee' }}>
           <div>
-            <p style={{ margin: 0, fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#2e2e2e' }}>{c.name}</p>
+            <p style={{ margin: 0, fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#444444' }}>{c.name}</p>
             <span style={{ fontSize: '0.65rem', fontFamily: 'Montserrat, sans-serif', color: c.status === 'Activa' ? '#22c55e' : '#f59e0b', fontWeight: 600 }}>{c.status}</span>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <p style={{ margin: 0, fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#2e2e2e' }}>{c.sent.toLocaleString()} / {c.opened.toLocaleString()}</p>
+            <p style={{ margin: 0, fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#444444' }}>{c.sent.toLocaleString()} / {c.opened.toLocaleString()}</p>
             <div style={{ height: '4px', backgroundColor: '#eee', borderRadius: '2px', marginTop: '0.25rem', width: '80px' }}>
               <div style={{ height: '100%', width: `${Math.round(c.opened / c.sent * 100)}%`, backgroundColor: color, borderRadius: '2px' }} />
             </div>
@@ -213,7 +219,7 @@ function BoxiumMock({ color }: { color: string }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
       <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
         {['Todos', 'Activos', 'Cerrados'].map((t, i) => (
-          <span key={i} style={{ fontSize: '0.65rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, padding: '0.2rem 0.6rem', borderRadius: '999px', backgroundColor: i === 0 ? color : '#f0f0f0', color: i === 0 ? '#1e1e1e' : '#727376' }}>{t}</span>
+          <span key={i} style={{ fontSize: '0.65rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, padding: '0.2rem 0.6rem', borderRadius: '999px', backgroundColor: i === 0 ? color : '#f0f0f0', color: i === 0 ? '#444444' : '#727376' }}>{t}</span>
         ))}
       </div>
       {contacts.map((c, i) => (
@@ -221,11 +227,11 @@ function BoxiumMock({ color }: { color: string }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             {c.hot && <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: color, flexShrink: 0 }} />}
             <div>
-              <p style={{ margin: 0, fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#2e2e2e' }}>{c.name}</p>
+              <p style={{ margin: 0, fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#444444' }}>{c.name}</p>
               <p style={{ margin: 0, fontSize: '0.65rem', fontFamily: 'Montserrat, sans-serif', color: '#727376' }}>{c.stage}</p>
             </div>
           </div>
-          <span style={{ fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#2e2e2e' }}>{c.value}</span>
+          <span style={{ fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#444444' }}>{c.value}</span>
         </div>
       ))}
     </div>
@@ -245,7 +251,7 @@ function CustomMock({ color }: { color: string }) {
       {steps.map((s, i) => (
         <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.5rem 0.75rem', borderRadius: '8px', backgroundColor: s.done ? '#f0fdf0' : '#f8f8f8', border: `1px solid ${s.done ? color + '50' : '#eee'}` }}>
           <span style={{ fontSize: '1rem' }}>{s.icon}</span>
-          <span style={{ flex: 1, fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, color: s.done ? '#2e2e2e' : '#9ca3af' }}>{s.label}</span>
+          <span style={{ flex: 1, fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, color: s.done ? '#444444' : '#9ca3af' }}>{s.label}</span>
           {s.done
             ? <Check size={14} color="#4b4b4b" strokeWidth={3} />
             : <span style={{ width: '14px', height: '14px', borderRadius: '50%', border: '2px solid #e5e5e5', display: 'inline-block' }} />
@@ -259,30 +265,29 @@ function CustomMock({ color }: { color: string }) {
 const styles: Record<string, React.CSSProperties> = {
   section: { backgroundColor: '#ffffff', padding: '5rem 1.5rem 4rem', position: 'relative', overflow: 'hidden' },
   header: { maxWidth: '700px', margin: '0 auto 3rem', textAlign: 'center' },
-  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#94e05a', marginBottom: '0.75rem' },
-  title: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: '#2e2e2e', lineHeight: 1.15, margin: '0 0 1rem', letterSpacing: '-0.02em' },
-  titleAccent: { color: '#94e05a' },
-  brandLine: { width: '48px', height: '3px', background: 'linear-gradient(to right, #c1ff72, #5ba8d4)', borderRadius: '2px', margin: '0 auto 1.25rem', transformOrigin: 'left' },
+  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9CD468', marginBottom: '0.75rem' },
+  title: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: '#444444', lineHeight: 1.15, margin: '0 0 1rem', letterSpacing: '-0.02em' },
+  titleAccent: { color: '#9CD468' },
+  brandLine: { width: '48px', height: '3px', background: 'linear-gradient(to right, #B7F38A, #5BA8D4)', borderRadius: '2px', margin: '0 auto 1.25rem', transformOrigin: 'left' },
   subtitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '1rem', color: '#727376', lineHeight: 1.75, margin: 0 },
   tabs: { display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', maxWidth: '900px', margin: '0 auto 2.5rem' },
   tab: { display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.25rem', borderRadius: '10px', border: '1.5px solid #e5e5e5', backgroundColor: 'transparent', cursor: 'pointer', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.88rem', color: '#4b4b4b', transition: 'all 0.2s ease' },
-  tabActive: { backgroundColor: '#1e1e1e', borderColor: '#1e1e1e', color: '#c1ff72' },
-  tabEmoji: { fontSize: '1rem' },
+  tabActive: { backgroundColor: '#444444', borderColor: '#444444', color: '#B7F38A' },
   tabName: { whiteSpace: 'nowrap' },
   panel: { maxWidth: '1100px', margin: '0 auto', display: 'grid', gap: '2rem', alignItems: 'center', backgroundColor: '#fafafa', borderRadius: '20px', padding: '2rem', border: '1px solid #eeeeee' },
   panelLeft: { display: 'flex', flexDirection: 'column', gap: '1rem' },
   productBadge: { display: 'flex', alignItems: 'center', gap: '0.75rem' },
   productLabel: { fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.7rem', color: '#727376', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 },
-  productName: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: '1.4rem', color: '#1e1e1e', margin: 0, letterSpacing: '-0.01em' },
-  productTagline: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '1rem', color: '#2e2e2e', margin: 0, lineHeight: 1.4 },
+  productName: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: '1.4rem', color: '#444444', margin: 0, letterSpacing: '-0.01em' },
+  productTagline: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '1rem', color: '#444444', margin: 0, lineHeight: 1.4 },
   productDesc: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '0.9rem', color: '#727376', lineHeight: 1.75, margin: 0 },
   featureList: { listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' },
   featureItem: { display: 'flex', alignItems: 'center', gap: '0.6rem' },
-  featureCheck: { flexShrink: 0, width: '20px', height: '20px', borderRadius: '50%', backgroundColor: '#c1ff72', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+  featureCheck: { flexShrink: 0, width: '20px', height: '20px', borderRadius: '50%', backgroundColor: '#B7F38A', display: 'flex', alignItems: 'center', justifyContent: 'center' },
   featureText: { fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.875rem', color: '#4b4b4b' },
   panelCtas: { display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '0.5rem' },
-  ctaPrimary: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#c1ff72', color: '#1e1e1e', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.875rem', padding: '0.7rem 1.4rem', borderRadius: '8px', textDecoration: 'none', transition: 'background-color 0.2s ease, transform 0.2s ease' },
-  ctaSecondary: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: 'transparent', color: '#1e1e1e', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.875rem', padding: '0.7rem 1.4rem', borderRadius: '8px', border: '1.5px solid #e5e5e5', textDecoration: 'none', transition: 'all 0.2s ease' },
+  ctaPrimary: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#B7F38A', color: '#444444', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.875rem', padding: '0.7rem 1.4rem', borderRadius: '8px', textDecoration: 'none', transition: 'background-color 0.2s ease, transform 0.2s ease' },
+  ctaSecondary: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: 'transparent', color: '#444444', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.875rem', padding: '0.7rem 1.4rem', borderRadius: '8px', border: '1.5px solid #e5e5e5', textDecoration: 'none', transition: 'all 0.2s ease' },
   panelRight: { position: 'relative' },
   productVisual: { backgroundColor: '#ffffff', borderRadius: '14px', border: '2px solid', overflow: 'hidden', boxShadow: '0 8px 40px rgba(0,0,0,0.08)' },
   mockHeader: { display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 1rem', backgroundColor: '#f5f5f5', borderBottom: '1px solid #eee' },
@@ -291,7 +296,7 @@ const styles: Record<string, React.CSSProperties> = {
   mockTitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.75rem', color: '#727376' },
   mockBody: { padding: '1rem', minHeight: '220px' },
   productTag: { position: 'absolute', bottom: '-0.75rem', right: '1.5rem', padding: '0.25rem 0.75rem', borderRadius: '999px' },
-  productTagText: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.7rem', color: '#1e1e1e' },
+  productTagText: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.7rem', color: '#444444' },
   mobileNav: { display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '2rem' },
   mobileDot: { width: '8px', height: '8px', borderRadius: '50%', border: 'none', cursor: 'pointer', transition: 'all 0.2s ease', padding: 0 },
 }

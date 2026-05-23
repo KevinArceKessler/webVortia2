@@ -38,7 +38,7 @@ export const PRODUCTS = [
       'Dashboard con indicadores',
     ],
     demoUrl: 'https://wa.me/+5493564224864?text=Hola%21%20Quiero%20saber%20sobre%20la%20inmobiliaria%20y%20sus%20servicios',
-    color: '#c1ff72',
+    color: '#B7F38A',
     anchor: '#inbox',
   },
   {
@@ -56,7 +56,7 @@ export const PRODUCTS = [
       'Integración con tus listas de contactos',
     ],
     demoUrl: BRAND.whatsapp,
-    color: '#5ba8d4',
+    color: '#5BA8D4',
     anchor: '#sender',
   },
   {
@@ -74,7 +74,7 @@ export const PRODUCTS = [
       'Reportes de actividad diaria',
     ],
     demoUrl: BRAND.whatsapp,
-    color: '#b7f380',
+    color: '#B7F38A',
     anchor: '#boxium',
   },
   {
@@ -92,7 +92,7 @@ export const PRODUCTS = [
       'Soporte y acompañamiento continuo',
     ],
     demoUrl: BRAND.whatsapp,
-    color: '#f1fea3',
+    color: '#B7F38A',
     anchor: '#custom',
   },
 ]
@@ -179,21 +179,18 @@ export const TECHNOLOGIES = [
 
 export const VALUES = [
   {
-    icon: '🔍',
-    title: 'Nos sumergimos en tu negocio',
+    title: 'Humanidad',
     description:
-      'Antes de escribir una línea de código, conocemos a fondo tus procesos, tu equipo y tus objetivos. La tecnología viene después.',
+      'Entendemos la IA como una herramienta para potenciar a las personas, no para reemplazarlas. Cada desarrollo está diseñado para resolver desafíos reales con una visión ética y cercana.',
   },
   {
-    icon: '🤝',
-    title: 'Tecnología con propósito',
+    title: 'Precisión',
     description:
-      'No desarrollamos por desarrollar. Cada solución tiene un problema real detrás y una persona que se beneficia con ella.',
+      'La velocidad sin exactitud es solo ruido. Nos enfocamos en la calidad de la respuesta y la optimización de procesos para garantizar resultados tangibles y un crecimiento estratégico.',
   },
   {
-    icon: '🧠',
-    title: 'IA que potencia, no reemplaza',
+    title: 'Control',
     description:
-      'Creemos en la inteligencia artificial como herramienta al servicio de las personas. Automatizamos lo repetitivo para que tu equipo brille en lo que importa.',
+      'Creemos en la tecnología de "caja abierta". Otorgamos al cliente soberanía total sobre sus datos y conversaciones mediante monitoreo en tiempo real y transparencia absoluta.',
   },
 ]
