@@ -125,12 +125,14 @@ body {
 }
 
 /* Botón azul */
-.btn-blue {
+/* btn-blue renombrado a btn-dark para respetar paleta de marca */
+/* El azul (#5BA8D4) es solo para íconos, líneas y detalles (máx 10%) */
+.btn-dark {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: var(--azul-medio);
-  color: var(--blanco);
+  background-color: var(--dark-bg);
+  color: var(--neon-ai);
   font-family: var(--font-main);
   font-weight: 700;
   font-size: 0.95rem;
@@ -142,8 +144,8 @@ body {
   transition: all 0.2s ease;
 }
 
-.btn-blue:hover {
-  background-color: #4a90c0;
+.btn-dark:hover {
+  background-color: var(--dark-bg-alt);
   transform: translateY(-1px);
 }
 

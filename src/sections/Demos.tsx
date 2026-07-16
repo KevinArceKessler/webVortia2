@@ -149,7 +149,7 @@ export default function Demos() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  section: { backgroundColor: '#ffffff', padding: '6rem 1.5rem 5rem' },
+  section: { backgroundColor: '#ffffff', padding: '4rem 1rem 3rem' },
   headerWrap: { maxWidth: '860px', margin: '0 auto 4rem', textAlign: 'center' },
   label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.92rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9CD468', marginBottom: '1rem' },
   title: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(2.2rem, 5vw, 3.8rem)', color: '#444444', lineHeight: 1.1, margin: '0 0 1.25rem', letterSpacing: '-0.03em' },

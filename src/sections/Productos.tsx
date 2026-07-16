@@ -2,6 +2,9 @@ import { useRef, useState, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { PRODUCTS } from '../data/brand'
 import { Check, ArrowRight, MessageCircle, Send, Layers, Code2 } from 'lucide-react'
+import InboxMock from '../components/InboxMock'
+import SenderMock from '../components/SenderMock'
+import BoxiumMock from '../components/BoxiumMock'
 
 const TAB_ICONS = [MessageCircle, Send, Layers, Code2]
 
@@ -23,7 +26,7 @@ export default function Productos() {
   return (
     <section id="productos" style={styles.section} ref={ref}>
 
-      {/* Encabezado */}
+      {/* Encabezado — más compacto */}
       <div style={styles.header}>
         <motion.span style={styles.label}
           initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -42,20 +45,12 @@ export default function Productos() {
           initial={{ opacity: 0, scaleX: 0 }} animate={inView ? { opacity: 1, scaleX: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
         />
-
-        <motion.p style={styles.subtitle}
-          initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.25 }}
-        >
-          Desarrollamos productos propios pensados para las necesidades reales
-          de las empresas argentinas. Simples de implementar, poderosos en resultados.
-        </motion.p>
       </div>
 
       {/* Tabs */}
       <motion.div style={styles.tabs}
         initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, delay: 0.35 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
       >
         {PRODUCTS.map((p, i) => {
           const Icon = TAB_ICONS[i]
@@ -100,6 +95,11 @@ export default function Productos() {
               </li>
             ))}
           </ul>
+
+          {/* CTA contextual del producto */}
+          {product.cta && (
+            <p style={styles.productCta}>{product.cta}</p>
+          )}
 
           <div style={styles.panelCtas}>
             <a href={product.demoUrl} target="_blank" rel="noopener noreferrer" style={styles.ctaPrimary}
@@ -157,86 +157,6 @@ export default function Productos() {
   )
 }
 
-// Mocks visuales
-function InboxMock({ color }: { color: string }) {
-  const messages = [
-    { from: 'cliente', text: 'Hola! Quisiera info sobre sus productos', time: '10:32' },
-    { from: 'vortia', text: '¡Hola! Con gusto te ayudo 😊 ¿Qué producto te interesa?', time: '10:32' },
-    { from: 'cliente', text: 'El plan para pymes, ¿tiene CRM incluido?', time: '10:33' },
-    { from: 'vortia', text: 'Sí, Vortia Boxium incluye CRM + Inbox integrado. ¿Agendamos una demo?', time: '10:33' },
-  ]
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-      {messages.map((m, i) => (
-        <div key={i} style={{ display: 'flex', justifyContent: m.from === 'cliente' ? 'flex-start' : 'flex-end' }}>
-          <div style={{ maxWidth: '75%', padding: '0.5rem 0.75rem', borderRadius: m.from === 'cliente' ? '0 12px 12px 12px' : '12px 0 12px 12px', backgroundColor: m.from === 'cliente' ? '#f0f0f0' : color, color: m.from === 'cliente' ? '#333' : '#444444', fontSize: '0.75rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 500, lineHeight: 1.4 }}>
-            {m.text}
-            <div style={{ fontSize: '0.6rem', opacity: 0.6, marginTop: '0.2rem', textAlign: 'right' }}>{m.time}</div>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
-
-function SenderMock({ color }: { color: string }) {
-  const campaigns = [
-    { name: 'Promo Mayo', sent: 1240, opened: 890, status: 'Activa' },
-    { name: 'Reactivación clientes', sent: 560, opened: 312, status: 'Pausada' },
-    { name: 'Newsletter semanal', sent: 2100, opened: 1680, status: 'Activa' },
-  ]
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-        <span style={{ fontSize: '0.7rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#727376', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Campaña</span>
-        <span style={{ fontSize: '0.7rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#727376', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Enviados / Abiertos</span>
-      </div>
-      {campaigns.map((c, i) => (
-        <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.6rem 0.75rem', backgroundColor: '#f8f8f8', borderRadius: '8px', border: '1px solid #eee' }}>
-          <div>
-            <p style={{ margin: 0, fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#444444' }}>{c.name}</p>
-            <span style={{ fontSize: '0.65rem', fontFamily: 'Montserrat, sans-serif', color: c.status === 'Activa' ? '#22c55e' : '#f59e0b', fontWeight: 600 }}>{c.status}</span>
-          </div>
-          <div style={{ textAlign: 'right' }}>
-            <p style={{ margin: 0, fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#444444' }}>{c.sent.toLocaleString()} / {c.opened.toLocaleString()}</p>
-            <div style={{ height: '4px', backgroundColor: '#eee', borderRadius: '2px', marginTop: '0.25rem', width: '80px' }}>
-              <div style={{ height: '100%', width: `${Math.round(c.opened / c.sent * 100)}%`, backgroundColor: color, borderRadius: '2px' }} />
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
-
-function BoxiumMock({ color }: { color: string }) {
-  const contacts = [
-    { name: 'Comercial Rodríguez', stage: 'Propuesta enviada', value: '$85.000', hot: true },
-    { name: 'Agro Del Valle', stage: 'Primera reunión', value: '$42.000', hot: false },
-    { name: 'Estudio Pérez', stage: 'Cierre', value: '$120.000', hot: true },
-  ]
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
-        {['Todos', 'Activos', 'Cerrados'].map((t, i) => (
-          <span key={i} style={{ fontSize: '0.65rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, padding: '0.2rem 0.6rem', borderRadius: '999px', backgroundColor: i === 0 ? color : '#f0f0f0', color: i === 0 ? '#444444' : '#727376' }}>{t}</span>
-        ))}
-      </div>
-      {contacts.map((c, i) => (
-        <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.6rem 0.75rem', backgroundColor: '#f8f8f8', borderRadius: '8px', border: `1px solid ${c.hot ? color + '60' : '#eee'}` }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            {c.hot && <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: color, flexShrink: 0 }} />}
-            <div>
-              <p style={{ margin: 0, fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#444444' }}>{c.name}</p>
-              <p style={{ margin: 0, fontSize: '0.65rem', fontFamily: 'Montserrat, sans-serif', color: '#727376' }}>{c.stage}</p>
-            </div>
-          </div>
-          <span style={{ fontSize: '0.78rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: '#444444' }}>{c.value}</span>
-        </div>
-      ))}
-    </div>
-  )
-}
 
 function CustomMock({ color }: { color: string }) {
   const steps = [
@@ -263,29 +183,41 @@ function CustomMock({ color }: { color: string }) {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  section: { backgroundColor: '#ffffff', padding: '5rem 1.5rem 4rem', position: 'relative', overflow: 'hidden' },
-  header: { maxWidth: '700px', margin: '0 auto 3rem', textAlign: 'center' },
-  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9CD468', marginBottom: '0.75rem' },
-  title: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: '#444444', lineHeight: 1.15, margin: '0 0 1rem', letterSpacing: '-0.02em' },
+  // ── Sección: padding top reducido de 5rem → 3rem
+  section: { backgroundColor: '#ffffff', padding: '3rem 1.5rem 3rem', position: 'relative', overflow: 'hidden' },
+
+  // ── Header: margin bottom reducido de 3rem → 1.5rem, subtítulo eliminado
+  header: { maxWidth: '700px', margin: '0 auto 1.5rem', textAlign: 'center' },
+  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9CD468', marginBottom: '0.5rem' },
+
+  // ── Título: font size levemente reducido, margin bottom achicado
+  title: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(1.5rem, 3vw, 2.4rem)', color: '#444444', lineHeight: 1.15, margin: '0 0 0.75rem', letterSpacing: '-0.02em' },
   titleAccent: { color: '#9CD468' },
-  brandLine: { width: '48px', height: '3px', background: 'linear-gradient(to right, #B7F38A, #5BA8D4)', borderRadius: '2px', margin: '0 auto 1.25rem', transformOrigin: 'left' },
-  subtitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '1rem', color: '#727376', lineHeight: 1.75, margin: 0 },
-  tabs: { display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', maxWidth: '900px', margin: '0 auto 2.5rem' },
+  brandLine: { width: '48px', height: '3px', background: 'linear-gradient(to right, #B7F38A, #5BA8D4)', borderRadius: '2px', margin: '0 auto 0', transformOrigin: 'left' },
+
+  // ── Tabs: margin top reducido
+  tabs: { display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', maxWidth: '900px', margin: '1.25rem auto 1.5rem' },
   tab: { display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.25rem', borderRadius: '10px', border: '1.5px solid #e5e5e5', backgroundColor: 'transparent', cursor: 'pointer', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.88rem', color: '#4b4b4b', transition: 'all 0.2s ease' },
   tabActive: { backgroundColor: '#444444', borderColor: '#444444', color: '#B7F38A' },
   tabName: { whiteSpace: 'nowrap' },
+
+  // ── Panel
   panel: { maxWidth: '1100px', margin: '0 auto', display: 'grid', gap: '2rem', alignItems: 'center', backgroundColor: '#fafafa', borderRadius: '20px', padding: '2rem', border: '1px solid #eeeeee' },
-  panelLeft: { display: 'flex', flexDirection: 'column', gap: '1rem' },
+  panelLeft: { display: 'flex', flexDirection: 'column', gap: '0.85rem' },
   productBadge: { display: 'flex', alignItems: 'center', gap: '0.75rem' },
   productLabel: { fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.7rem', color: '#727376', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 },
   productName: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: '1.4rem', color: '#444444', margin: 0, letterSpacing: '-0.01em' },
   productTagline: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '1rem', color: '#444444', margin: 0, lineHeight: 1.4 },
   productDesc: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '0.9rem', color: '#727376', lineHeight: 1.75, margin: 0 },
-  featureList: { listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' },
+  featureList: { listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.45rem' },
   featureItem: { display: 'flex', alignItems: 'center', gap: '0.6rem' },
   featureCheck: { flexShrink: 0, width: '20px', height: '20px', borderRadius: '50%', backgroundColor: '#B7F38A', display: 'flex', alignItems: 'center', justifyContent: 'center' },
   featureText: { fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.875rem', color: '#4b4b4b' },
-  panelCtas: { display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '0.5rem' },
+
+  // ── CTA contextual
+  productCta: { fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.85rem', color: '#5BA8D4', margin: 0, fontStyle: 'italic' },
+
+  panelCtas: { display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '0.25rem' },
   ctaPrimary: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#B7F38A', color: '#444444', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.875rem', padding: '0.7rem 1.4rem', borderRadius: '8px', textDecoration: 'none', transition: 'background-color 0.2s ease, transform 0.2s ease' },
   ctaSecondary: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: 'transparent', color: '#444444', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.875rem', padding: '0.7rem 1.4rem', borderRadius: '8px', border: '1.5px solid #e5e5e5', textDecoration: 'none', transition: 'all 0.2s ease' },
   panelRight: { position: 'relative' },
@@ -297,6 +229,6 @@ const styles: Record<string, React.CSSProperties> = {
   mockBody: { padding: '1rem', minHeight: '220px' },
   productTag: { position: 'absolute', bottom: '-0.75rem', right: '1.5rem', padding: '0.25rem 0.75rem', borderRadius: '999px' },
   productTagText: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.7rem', color: '#444444' },
-  mobileNav: { display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '2rem' },
+  mobileNav: { display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '1.5rem' },
   mobileDot: { width: '8px', height: '8px', borderRadius: '50%', border: 'none', cursor: 'pointer', transition: 'all 0.2s ease', padding: 0 },
 }

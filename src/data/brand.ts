@@ -27,16 +27,21 @@ export const PRODUCTS = [
     id: 'inbox',
     name: 'Vortia Inbox',
     emoji: '💬',
-    tagline: 'Tu empresa siempre disponible, sin perder el toque humano.',
+    tagline: 'Tu empresa siempre disponible, en todos los canales.',
     description:
-      'Asistente omnicanal con inteligencia artificial que responde consultas de tus clientes en segundos, 24/7. WhatsApp, redes sociales y webchat unificados en un solo panel.',
+      'Vortia Inbox es el agente virtual que responde las consultas de tus clientes 24/7, en lenguaje natural y por todos los canales que usás. Se entrena con la información de tu empresa, detecta intenciones, clasifica conversaciones y acompaña al usuario de principio a fin.',
+    shortDescription:
+      'Asistente omnicanal con IA que responde consultas 24/7. WhatsApp, redes sociales y webchat unificados en un solo panel.',
     features: [
-      'Respuestas instantáneas 24/7',
-      'WhatsApp, Instagram y Webchat',
+      'Respuestas 24/7 en lenguaje natural',
+      'Multicanal: WhatsApp, Instagram y Webchat',
+      'Detección de intenciones y clasificación de conversaciones',
       'Panel de monitoreo en tiempo real',
+      'Dashboard con métricas e indicadores',
+      'Intervención en vivo desde el panel',
       'Implementación en 4 semanas',
-      'Dashboard con indicadores',
     ],
+    cta: '¿Querés verlo en acción? Agendá tu demo gratis.',
     demoUrl: 'https://wa.me/+5493564224864?text=Hola%21%20Quiero%20saber%20sobre%20la%20inmobiliaria%20y%20sus%20servicios',
     color: '#B7F38A',
     anchor: '#inbox',
@@ -45,16 +50,21 @@ export const PRODUCTS = [
     id: 'sender',
     name: 'Vortia Sender',
     emoji: '📨',
-    tagline: 'Llegá a miles de clientes con un solo clic.',
+    tagline: 'Enviá miles de mensajes. Automatizá el seguimiento.',
     description:
-      'Plataforma de envío y automatización masiva de mensajes por WhatsApp. Campañas, secuencias y comunicaciones que escalan sin perder el toque personal de tu marca.',
+      'Vortia Sender automatiza el envío masivo de mensajes por WhatsApp. Creá plantillas, armá listas de destinatarios, programá envíos y seguí el ciclo de vida de cada mensaje: enviado, recibido, leído o con error.',
+    shortDescription:
+      'Plataforma de envío masivo por WhatsApp. Campañas, secuencias y comunicaciones que escalan sin perder el toque personal de tu marca.',
     features: [
       'Envío masivo por WhatsApp',
-      'Automatización de secuencias',
-      'Segmentación de audiencias',
-      'Reportes de apertura y respuesta',
-      'Integración con tus listas de contactos',
+      'Plantillas de mensajes personalizables',
+      'Listas y segmentación de destinatarios',
+      'Envíos programados y automáticos',
+      'Seguimiento de estado: enviado / recibido / leído / error',
+      'Dashboard de métricas',
+      'Integración con Vortia Inbox',
     ],
+    cta: '¿Querés automatizar tus comunicaciones? Hablemos.',
     demoUrl: BRAND.whatsapp,
     color: '#5BA8D4',
     anchor: '#sender',
@@ -65,14 +75,19 @@ export const PRODUCTS = [
     emoji: '🧩',
     tagline: 'CRM + Inbox: todo tu negocio en un solo lugar.',
     description:
-      'Integra Vortia Inbox con un CRM potente pensado para pymes y emprendimientos. Llevá el seguimiento de clientes, proyecciones y actividad diaria sin perder ningún objetivo de vista.',
+      'Vortia Boxium integra el poder de Vortia Inbox con un CRM pensado para pymes y emprendimientos. Gestioná clientes, oportunidades y proyecciones — e interactuá con tu CRM de forma conversacional a través del asistente.',
+    shortDescription:
+      'CRM integrado con Vortia Inbox para pymes. Seguimiento de clientes, proyecciones y actividad diaria sin perder ningún objetivo de vista.',
     features: [
-      'CRM integrado con Inbox',
+      'CRM para pymes y emprendimientos',
       'Gestión de clientes y oportunidades',
-      'Seguimiento de proyecciones',
+      'Seguimiento de proyecciones de venta',
       'Recordatorios y tareas automáticas',
       'Reportes de actividad diaria',
+      'Integración total con Vortia Inbox',
+      'Interacción conversacional con el CRM',
     ],
+    cta: '¿Querés gestionar tu negocio de forma más inteligente? Agendá una demo.',
     demoUrl: BRAND.whatsapp,
     color: '#B7F38A',
     anchor: '#boxium',
@@ -83,17 +98,43 @@ export const PRODUCTS = [
     emoji: '⚙️',
     tagline: 'Software que se adapta a tu empresa, no al revés.',
     description:
-      'Nos sumergimos en tus procesos, conocemos a fondo tu negocio, identificamos actores y datos clave, y construimos software que resuelve problemas reales. Desde el análisis hasta el deploy.',
+      'Nos sumergimos en tus procesos, conocemos a fondo tu negocio, identificamos actores y datos clave, y construimos software que resuelve problemas reales. Desde el análisis hasta el deploy, y con soporte continuo.',
+    shortDescription:
+      'Software personalizado para tu empresa. Relevamiento, desarrollo a medida, automatización y acompañamiento desde el día uno.',
     features: [
       'Relevamiento y análisis de procesos',
       'Propuesta de mejoras e informatización',
       'Desarrollo a medida y personalizado',
       'Automatización de procesos internos',
+      'Integración con sistemas existentes',
+      'Deploy y puesta en marcha',
       'Soporte y acompañamiento continuo',
     ],
+    cta: '¿Tenés un problema que ninguna herramienta resuelve? Contanos.',
     demoUrl: BRAND.whatsapp,
     color: '#B7F38A',
     anchor: '#custom',
+  },
+]
+
+export const TEAM = [
+  {
+    initials: 'RA',
+    name: 'Román Arce Kessler',
+    role: 'Co-Fundador · Desarrollo',
+    linkedin: 'https://www.linkedin.com/in/roman-arce-kessler/',
+  },
+  {
+    initials: 'GA',
+    name: 'Gastón Arce Kessler',
+    role: 'Co-Fundador · Estrategia comercial',
+    linkedin: 'https://www.linkedin.com/in/gaston-arce-kessler-2020a3104/',
+  },
+  {
+    initials: 'KA',
+    name: 'Kevin Arce Kessler',
+    role: 'Co-Fundador · Coordinación técnica',
+    linkedin: 'https://www.linkedin.com/in/kevin-arce-kessler/',
   },
 ]
 
@@ -149,7 +190,7 @@ export const CLIENTS = [
   {
     id: 'hipodromo-boero',
     name: 'Hipódromo Carlos Boero Romano',
-    industry: 'Entretenimiento',
+    industry: 'Actividades deportivas',
     logo: '/clientes/hipodromo-boero.png',
     testimonial: '',
     caseStudy: null,
@@ -157,7 +198,7 @@ export const CLIENTS = [
   {
     id: 'hipodromo-flores',
     name: 'Hipódromo Las Flores',
-    industry: 'Entretenimiento',
+    industry: 'Actividades deportivas',
     logo: '/clientes/hipodromo-flores.png',
     testimonial: '',
     caseStudy: null,
@@ -184,13 +225,13 @@ export const VALUES = [
       'Entendemos la IA como una herramienta para potenciar a las personas, no para reemplazarlas. Cada desarrollo está diseñado para resolver desafíos reales con una visión ética y cercana.',
   },
   {
-    title: 'Precisión',
+    title: 'Alianza real',
     description:
-      'La velocidad sin exactitud es solo ruido. Nos enfocamos en la calidad de la respuesta y la optimización de procesos para garantizar resultados tangibles y un crecimiento estratégico.',
+      'No somos proveedores. Nos metemos de lleno en tu negocio, entendemos tus procesos y construimos junto a vos — desde el primer día hasta después del deploy.',
   },
   {
-    title: 'Control',
+    title: 'Control total',
     description:
-      'Creemos en la tecnología de "caja abierta". Otorgamos al cliente soberanía total sobre sus datos y conversaciones mediante monitoreo en tiempo real y transparencia absoluta.',
+      'Creemos en la tecnología de caja abierta. Tus datos y conversaciones son tuyas, siempre. Transparencia absoluta en cada etapa.',
   },
 ]

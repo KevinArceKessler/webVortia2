@@ -63,7 +63,7 @@ export default function Footer() {
             { label: 'Inicio', href: '#inicio' },
             { label: 'Quiénes somos', href: '#nosotros' },
             { label: 'Clientes', href: '#clientes' },
-            { label: 'Demos', href: '#demos' },
+            /*{ label: 'Demos', href: '#demos' },*/
             { label: 'Contacto', href: '#contacto' },
           ].map((item, i) => (
             <a key={i} href={item.href} style={styles.link}

@@ -21,7 +21,7 @@ function App() {
         <Productos />
         <Clientes />
         <Tecnologias />
-        <Demos />
+        {/*<Demos />*/}
         <Contacto />
       </main>
       <Footer />
