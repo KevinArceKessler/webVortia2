@@ -47,6 +47,11 @@ html {
   font-size: 16px;
 }
 
+/* Evita que el header fijo tape el inicio de cada sección al navegar por anclas */
+section[id] {
+  scroll-margin-top: 72px;
+}
+
 body {
   font-family: var(--font-main);
   background-color: var(--blanco);
@@ -261,16 +266,3 @@ body {
   }
 }
 
-/* ============================================
-   NOSOTROS — RESPONSIVE
-   ============================================ */
-
-/* En mobile el grid pasa a una columna */
-@media (max-width: 768px) {
-  #nosotros .container,
-  #nosotros > div > div:first-of-type {
-    grid-template-columns: 1fr !important;
-    gap: 2rem !important;
-    padding: 3rem 1.25rem 2.5rem !important;
-  }
-}

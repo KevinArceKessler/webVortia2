@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { CLIENTS } from '../data/brand'
 import { X, Quote, ChevronLeft, ChevronRight } from 'lucide-react'
@@ -77,7 +77,6 @@ const TESTIMONIOS = [
 ]
 
 const CLIENTS_LOOP = [...CLIENTS, ...CLIENTS]
-const VISIBLE = 3
 
 export default function Clientes() {
   const ref = useRef(null)
@@ -86,8 +85,20 @@ export default function Clientes() {
   const [selected, setSelected] = useState<typeof TESTIMONIOS[0] | null>(null)
   const [paused, setPaused] = useState(false)
   const [sliderIndex, setSliderIndex] = useState(0)
+  const [visible, setVisible] = useState(3)
 
-  const maxIndex = TESTIMONIOS.length - VISIBLE
+  useEffect(() => {
+    const check = () => setVisible(window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  const maxIndex = TESTIMONIOS.length - visible
+
+  useEffect(() => {
+    setSliderIndex(i => Math.min(i, maxIndex))
+  }, [maxIndex])
 
   const prev = () => setSliderIndex(i => (i === 0 ? maxIndex : i - 1))
   const next = () => setSliderIndex(i => (i === maxIndex ? 0 : i + 1))
@@ -172,12 +183,12 @@ export default function Clientes() {
         <div style={styles.sliderWrapper}>
           <div style={styles.sliderViewport}>
             <motion.div
-              style={styles.sliderTrack}
-              animate={{ x: `-${sliderIndex * (100 / VISIBLE)}%` }}
+              style={{ ...styles.sliderTrack, width: `${(TESTIMONIOS.length / visible) * 100}%` }}
+              animate={{ x: `-${sliderIndex * (100 / TESTIMONIOS.length)}%` }}
               transition={{ duration: 0.4, ease: 'easeInOut' }}
             >
               {TESTIMONIOS.map((t, i) => (
-                <div key={i} style={styles.sliderItem}>
+                <div key={i} style={{ ...styles.sliderItem, width: `${100 / TESTIMONIOS.length}%` }}>
                   <button style={styles.testimonioCard} onClick={() => openModal(t)}>
                     <div style={styles.testimonioQuoteIcon}>
                       <Quote size={18} color="#B7F38A" />
@@ -233,14 +244,14 @@ export default function Clientes() {
       {/* ── Modal ── */}
       <AnimatePresence>
         {modalOpen && selected && (
-          <>
-            <motion.div style={styles.overlay} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={closeModal} />
+          <motion.div style={styles.overlay} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={closeModal}>
             <motion.div
               style={styles.modal}
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
+              onClick={(e) => e.stopPropagation()}
             >
               <div style={styles.modalHeader}>
                 <div style={styles.modalAutor}>
@@ -282,7 +293,7 @@ export default function Clientes() {
                 Quiero resultados similares
               </a>
             </motion.div>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -344,8 +355,8 @@ const styles: Record<string, React.CSSProperties> = {
   verCaso: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.78rem', color: '#9CD468' },
 
   // Modal
-  overlay: { position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 2000, backdropFilter: 'blur(4px)' },
-  modal: { position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 2001, backgroundColor: '#ffffff', borderRadius: '20px', padding: '2rem', width: '90%', maxWidth: '560px', maxHeight: '90vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1.5rem', boxShadow: '0 24px 80px rgba(0,0,0,0.2)' },
+  overlay: { position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 2000, backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem', boxSizing: 'border-box' },
+  modal: { position: 'relative', zIndex: 2001, backgroundColor: '#ffffff', borderRadius: '20px', padding: '2rem', width: '100%', maxWidth: '560px', maxHeight: '90vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1.5rem', boxShadow: '0 24px 80px rgba(0,0,0,0.2)' },
   modalHeader: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
   modalAutor: { display: 'flex', alignItems: 'center', gap: '0.75rem' },
   modalAvatar: { width: '48px', height: '48px', borderRadius: '50%', backgroundColor: '#444444', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },

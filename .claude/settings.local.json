@@ -6,7 +6,15 @@
       "Bash(Get-Content \"C:\\\\Users\\\\Cele\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Cele-OneDrive-Desktop-VORTIA-CLAUDE-WEB-vortia-web\\\\a0d372b3-cf47-40dd-bb28-67ad9fc60140\\\\tasks\\\\b1ay9k69x.output\" -ErrorAction SilentlyContinue)",
       "Bash(Select-Object -Last 10)",
       "Bash(cd /tmp)",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(timeout 30 bash -c 'until curl -sf http://localhost:5173 >/dev/null 2>&1 || curl -sf http://localhost:5174 >/dev/null 2>&1; do sleep 1; done')",
+      "Read(//tmp/**)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(echo \"installing in background, pid $!\")",
+      "Bash(break)",
+      "Bash(npx playwright *)",
+      "Bash(node shot.js)"
     ]
   }
 }

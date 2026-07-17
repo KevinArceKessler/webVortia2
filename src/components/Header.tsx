@@ -208,10 +208,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '0.25rem',
-    // Oculto en mobile — lo manejamos con el drawer
-    '@media (max-width: 768px)': {
-      display: 'none',
-    },
+    // Oculto en mobile — lo manejamos con el drawer (ver index.css)
   } as React.CSSProperties,
 
   navLink: {

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { VALUES, TEAM } from '../data/brand'
 
@@ -6,6 +6,14 @@ export default function Nosotros() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
   const [showDetail, setShowDetail] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   return (
     <section id="nosotros" style={styles.section} ref={ref}>
@@ -20,7 +28,12 @@ export default function Nosotros() {
         {!showDetail ? (
           <motion.div
             key="main"
-            style={styles.container}
+            style={{
+              ...styles.container,
+              gridTemplateColumns: isMobile ? '1fr' : '55fr 45fr',
+              gap: isMobile ? '2.5rem' : '5rem',
+              padding: isMobile ? '3rem 1.5rem 2.5rem' : '5rem 2.5rem 4rem',
+            }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -145,7 +158,7 @@ export default function Nosotros() {
         ) : (
           <motion.div
             key="detail"
-            style={styles.detailWrapper}
+            style={{ ...styles.detailWrapper, padding: isMobile ? '3rem 1.5rem 2.5rem' : '5rem 2.5rem 4rem' }}
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}

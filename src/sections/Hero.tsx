@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowDown, Calendar, CheckCircle2 } from 'lucide-react'
 
@@ -15,6 +16,15 @@ const PILLARS = [
 ]
 
 export default function Hero() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
   return (
     <section id="inicio" style={styles.section}>
       {/* Grilla más densa */}
@@ -34,7 +44,7 @@ export default function Hero() {
       <div style={styles.glowLine} aria-hidden="true" />
 
       {/* Layout */}
-      <div style={styles.inner}>
+      <div style={{ ...styles.inner, gridTemplateColumns: isMobile ? '1fr' : '50fr 40fr' }}>
 
         {/* ── Columna izquierda ── */}
         <div style={styles.leftCol}>
@@ -130,7 +140,7 @@ export default function Hero() {
             href="https://calendar.app.google/oPjfyyKEjV8vPFmi6"
             target="_blank"
             rel="noopener noreferrer"
-            style={styles.floatCard}
+            style={{ ...styles.floatCard, whiteSpace: isMobile ? 'normal' : 'nowrap' }}
             animate={{ y: [0, -5, 0] }}
             transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#B7F38A' }}

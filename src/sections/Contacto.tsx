@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { BRAND, PRODUCTS } from '../data/brand'
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react'
@@ -9,6 +9,14 @@ export default function Contacto() {
   const [form, setForm] = useState({ nombre: '', empresa: '', email: '', telefono: '', producto: '', mensaje: '' })
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -59,7 +67,7 @@ export default function Contacto() {
         </motion.p>
       </div>
 
-      <div style={styles.grid}>
+      <div style={{ ...styles.grid, gridTemplateColumns: isMobile ? '1fr' : '1fr 1.6fr' }}>
         {/* Info */}
         <motion.div style={styles.infoCol}
           initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -83,10 +91,6 @@ export default function Contacto() {
             ))}
 
             <div style={styles.divider} />
-
-            <p style={styles.responseTime}>
-              ⚡ Tiempo de respuesta promedio: <strong style={{ color: '#5BA8D4' }}>menos de 2 horas</strong> en horario comercial.
-            </p>
 
             <div style={styles.socials}>
               {[
@@ -117,7 +121,7 @@ export default function Contacto() {
             </div>
           ) : (
             <div style={styles.formCard}>
-              <div style={styles.formRow}>
+              <div style={{ ...styles.formRow, gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr' }}>
                 <div style={styles.fieldWrap}>
                   <label style={styles.fieldLabel}>Nombre *</label>
                   <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Tu nombre" style={styles.input} />
@@ -127,7 +131,7 @@ export default function Contacto() {
                   <input name="empresa" value={form.empresa} onChange={handleChange} placeholder="Tu empresa" style={styles.input} />
                 </div>
               </div>
-              <div style={styles.formRow}>
+              <div style={{ ...styles.formRow, gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr' }}>
                 <div style={styles.fieldWrap}>
                   <label style={styles.fieldLabel}>Email *</label>
                   <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="tu@empresa.com" style={styles.input} />

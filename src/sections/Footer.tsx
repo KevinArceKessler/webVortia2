@@ -94,7 +94,6 @@ export default function Footer() {
 
       <div style={styles.bottom}>
         <p style={styles.copy}>© {year} Vortia S.R.L. — Todos los derechos reservados.</p>
-        <p style={styles.copy}>Hecho con ☕ en San Francisco, Córdoba.</p>
       </div>
     </footer>
   )

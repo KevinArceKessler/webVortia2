@@ -69,8 +69,8 @@ export default function Tecnologias() {
 const styles: Record<string, React.CSSProperties> = {
   section: { backgroundColor: '#444444', padding: '2.5rem 0', overflow: 'hidden' },
   headerWrap: { maxWidth: '700px', margin: '0 auto 1.5rem', textAlign: 'center', padding: '0 1.5rem' },
-  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 1000, fontSize: '2.5rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#5BA8D4', marginBottom: '0.5rem' },
-  subtitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '1.2rem', color: '#727376', lineHeight: 1.6, margin: 0 },
+  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 1000, fontSize: 'clamp(1.6rem, 7vw, 2.5rem)', letterSpacing: '0.06em', textTransform: 'uppercase', color: '#5BA8D4', marginBottom: '0.5rem' },
+  subtitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: 'clamp(0.95rem, 2.5vw, 1.2rem)', color: '#727376', lineHeight: 1.6, margin: 0 },
   carouselWrapper: { position: 'relative', width: '100%', overflow: 'hidden', padding: '0.5rem 0' },
   fadeLeft: { position: 'absolute', left: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to right, #444444, transparent)', zIndex: 2, pointerEvents: 'none' },
   fadeRight: { position: 'absolute', right: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to left, #444444, transparent)', zIndex: 2, pointerEvents: 'none' },
