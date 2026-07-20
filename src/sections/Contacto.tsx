@@ -3,13 +3,17 @@ import { motion, useInView } from 'framer-motion'
 import { BRAND, PRODUCTS } from '../data/brand'
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react'
 
+const CONTACT_ENDPOINT = 'https://vortia-api.onrender.com/api/slack/contact'
+
 export default function Contacto() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const [form, setForm] = useState({ nombre: '', empresa: '', email: '', telefono: '', producto: '', mensaje: '' })
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
+  const [error, setError] = useState('')
   const [isMobile, setIsMobile] = useState(false)
+  const canSubmit = Boolean(form.nombre.trim() && form.email.trim() && form.mensaje.trim())
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -22,14 +26,45 @@ export default function Contacto() {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = async (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!form.nombre || !form.email || !form.mensaje) return
+    if (sending) return
+
     setSending(true)
-    await new Promise(r => setTimeout(r, 1500))
-    setSending(false)
-    setSent(true)
-    setForm({ nombre: '', empresa: '', email: '', telefono: '', producto: '', mensaje: '' })
+    setError('')
+
+    const selectedProduct = PRODUCTS.find(product => product.id === form.producto)?.name
+    const messageDetails = [
+      form.empresa.trim() && `Empresa: ${form.empresa.trim()}`,
+      form.telefono.trim() && `Teléfono: ${form.telefono.trim()}`,
+      form.producto && `Producto de interés: ${selectedProduct ?? 'Otro / No estoy seguro'}`,
+      `Mensaje: ${form.mensaje.trim()}`,
+    ].filter(Boolean)
+
+    try {
+      const response = await fetch(CONTACT_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.nombre.trim(),
+          email: form.email.trim(),
+          message: messageDetails.join('\n'),
+        }),
+      })
+      const data = await response.json().catch(() => null)
+
+      if (!response.ok || !data?.success) {
+        throw new Error(data?.message || data?.error || 'No pudimos enviar tu mensaje.')
+      }
+
+      setSent(true)
+      setForm({ nombre: '', empresa: '', email: '', telefono: '', producto: '', mensaje: '' })
+    } catch (submitError) {
+      console.error('Error al enviar el formulario de contacto:', submitError)
+      setError(submitError instanceof Error ? submitError.message : 'Ocurrió un error inesperado. Intentá nuevamente.')
+    } finally {
+      setSending(false)
+    }
   }
 
   const infoItems = [
@@ -39,7 +74,7 @@ export default function Contacto() {
   ]
 
   return (
-    <section id="contacto" style={styles.section} ref={ref}>
+    <section id="contacto" className="home-section home-contact" style={styles.section} ref={ref}>
       <div style={styles.headerWrap}>
         <motion.span style={styles.label}
           initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -120,48 +155,51 @@ export default function Contacto() {
               <button style={styles.successBtn} onClick={() => setSent(false)}>Enviar otro mensaje</button>
             </div>
           ) : (
-            <div style={styles.formCard}>
+            <form style={styles.formCard} onSubmit={handleSubmit}>
               <div style={{ ...styles.formRow, gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr' }}>
                 <div style={styles.fieldWrap}>
-                  <label style={styles.fieldLabel}>Nombre *</label>
-                  <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Tu nombre" style={styles.input} />
+                  <label htmlFor="contacto-nombre" style={styles.fieldLabel}>Nombre *</label>
+                  <input id="contacto-nombre" name="nombre" value={form.nombre} onChange={handleChange} placeholder="Tu nombre" style={styles.input} autoComplete="name" required />
                 </div>
                 <div style={styles.fieldWrap}>
-                  <label style={styles.fieldLabel}>Empresa</label>
-                  <input name="empresa" value={form.empresa} onChange={handleChange} placeholder="Tu empresa" style={styles.input} />
+                  <label htmlFor="contacto-empresa" style={styles.fieldLabel}>Empresa</label>
+                  <input id="contacto-empresa" name="empresa" value={form.empresa} onChange={handleChange} placeholder="Tu empresa" style={styles.input} autoComplete="organization" />
                 </div>
               </div>
               <div style={{ ...styles.formRow, gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr' }}>
                 <div style={styles.fieldWrap}>
-                  <label style={styles.fieldLabel}>Email *</label>
-                  <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="tu@empresa.com" style={styles.input} />
+                  <label htmlFor="contacto-email" style={styles.fieldLabel}>Email *</label>
+                  <input id="contacto-email" name="email" type="email" value={form.email} onChange={handleChange} placeholder="tu@empresa.com" style={styles.input} autoComplete="email" required />
                 </div>
                 <div style={styles.fieldWrap}>
-                  <label style={styles.fieldLabel}>Teléfono</label>
-                  <input name="telefono" value={form.telefono} onChange={handleChange} placeholder="+54 9 ..." style={styles.input} />
+                  <label htmlFor="contacto-telefono" style={styles.fieldLabel}>Teléfono</label>
+                  <input id="contacto-telefono" name="telefono" type="tel" value={form.telefono} onChange={handleChange} placeholder="+54 9 ..." style={styles.input} autoComplete="tel" />
                 </div>
               </div>
               <div style={styles.fieldWrap}>
-                <label style={styles.fieldLabel}>Producto de interés</label>
-                <select name="producto" value={form.producto} onChange={handleChange} style={styles.select}>
+                <label htmlFor="contacto-producto" style={styles.fieldLabel}>Producto de interés</label>
+                <select id="contacto-producto" name="producto" value={form.producto} onChange={handleChange} style={styles.select}>
                   <option value="">Seleccioná un producto</option>
                   {PRODUCTS.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                   <option value="otro">Otro / No estoy seguro</option>
                 </select>
               </div>
               <div style={styles.fieldWrap}>
-                <label style={styles.fieldLabel}>Mensaje *</label>
-                <textarea name="mensaje" value={form.mensaje} onChange={handleChange} placeholder="Contanos qué necesitás..." style={styles.textarea} rows={4} />
+                <label htmlFor="contacto-mensaje" style={styles.fieldLabel}>Mensaje *</label>
+                <textarea id="contacto-mensaje" name="mensaje" value={form.mensaje} onChange={handleChange} placeholder="Contanos qué necesitás..." style={styles.textarea} rows={4} required />
               </div>
-              <button onClick={handleSubmit} disabled={sending || !form.nombre || !form.email || !form.mensaje}
-                style={{ ...styles.submitBtn, opacity: (!form.nombre || !form.email || !form.mensaje) ? 0.5 : 1, cursor: (!form.nombre || !form.email || !form.mensaje) ? 'not-allowed' : 'pointer' }}
-                onMouseEnter={(e) => { if (form.nombre && form.email && form.mensaje) (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#9CD468' }}
+              {error && <p role="alert" style={styles.errorText}>{error}</p>}
+              <button type="submit" disabled={sending || !canSubmit}
+                style={{ ...styles.submitBtn, opacity: canSubmit ? 1 : 0.5, cursor: canSubmit ? 'pointer' : 'not-allowed' }}
+                onMouseEnter={(e) => { if (canSubmit) (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#9CD468' }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#B7F38A' }}
               >
                 {sending ? 'Enviando...' : <><Send size={16} /> Enviar mensaje</>}
               </button>
-              <p style={styles.formNote}>* Campos obligatorios. No compartimos tu información con terceros.</p>
-            </div>
+              <p style={styles.formNote}>
+                * Campos obligatorios. Al enviar, aceptás nuestra <a href="/privacidaddatos" style={styles.formNoteLink}>Política de privacidad</a>.
+              </p>
+            </form>
           )}
         </motion.div>
       </div>
@@ -169,19 +207,19 @@ export default function Contacto() {
   )
 }
 
-const inputBase: React.CSSProperties = { width: '100%', fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.9rem', padding: '0.75rem 1rem', borderRadius: '8px', border: '1.5px solid #e5e5e5', backgroundColor: '#fafafa', color: '#444444', outline: 'none', boxSizing: 'border-box', transition: 'border-color 0.2s ease' }
+const inputBase: React.CSSProperties = { width: '100%', fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.9rem', padding: '0.78rem 1rem', borderRadius: '9px', border: '1px solid rgba(68,68,68,0.14)', backgroundColor: 'rgba(247,248,244,0.82)', color: '#444444', outline: 'none', boxSizing: 'border-box', transition: 'border-color 0.2s ease, background-color 0.2s ease' }
 
 const styles: Record<string, React.CSSProperties> = {
-  section: { backgroundColor: '#ffffff', padding: '5rem 1.5rem 4rem' },
+  section: { backgroundColor: 'transparent', padding: '6rem 1.5rem 5.5rem' },
   headerWrap: { maxWidth: '700px', margin: '0 auto 3rem', textAlign: 'center' },
   label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#5BA8D4', marginBottom: '0.75rem' },
   title: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: '#444444', lineHeight: 1.15, margin: '0 0 1rem', letterSpacing: '-0.02em' },
-  titleAccent: { color: '#5BA8D4' },
+  titleAccent: { color: '#659b47' },
   brandLine: { width: '48px', height: '3px', background: 'linear-gradient(to right, #5BA8D4, #B7F38A)', borderRadius: '2px', margin: '0 auto 1.25rem', transformOrigin: 'left' },
   subtitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '1rem', color: '#727376', lineHeight: 1.75, margin: 0 },
   grid: { maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '2.5rem', alignItems: 'start' },
   infoCol: {},
-  infoCard: { backgroundColor: '#444444', borderRadius: '16px', padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' },
+  infoCard: { background: 'linear-gradient(145deg, #363835, #424440)', borderRadius: '14px', padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', border: '1px solid rgba(183,243,138,0.14)', boxShadow: '0 20px 52px rgba(38,42,36,0.16)' },
   infoTitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '1rem', color: '#ffffff', margin: 0 },
   infoItem: { display: 'flex', alignItems: 'flex-start', gap: '0.75rem' },
   infoIcon: { width: '36px', height: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '0.1rem' },
@@ -192,7 +230,7 @@ const styles: Record<string, React.CSSProperties> = {
   socials: { display: 'flex', gap: '1rem' },
   socialLink: { fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.8rem', color: '#727376', textDecoration: 'none', transition: 'color 0.2s ease' },
   formCol: {},
-  formCard: { backgroundColor: '#ffffff', borderRadius: '16px', padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', border: '1px solid #eeeeee' },
+  formCard: { backgroundColor: 'rgba(255,255,255,0.78)', borderRadius: '14px', padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', border: '1px solid rgba(68,68,68,0.1)', boxShadow: '0 20px 58px rgba(48,54,45,0.08)', backdropFilter: 'blur(10px)' },
   formRow: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' },
   fieldWrap: { display: 'flex', flexDirection: 'column', gap: '0.4rem' },
   fieldLabel: { fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.78rem', color: '#444444', textTransform: 'uppercase', letterSpacing: '0.06em' },
@@ -201,6 +239,8 @@ const styles: Record<string, React.CSSProperties> = {
   textarea: { ...inputBase, resize: 'vertical', minHeight: '100px' },
   submitBtn: { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', backgroundColor: '#B7F38A', color: '#444444', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.95rem', padding: '0.9rem 1.5rem', borderRadius: '8px', border: 'none', transition: 'background-color 0.2s ease', width: '100%' },
   formNote: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '0.75rem', color: '#9ca3af', margin: 0, textAlign: 'center' },
+  formNoteLink: { color: '#5BA8D4', fontWeight: 600 },
+  errorText: { fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.82rem', color: '#b42318', backgroundColor: '#fef3f2', border: '1px solid #fecdca', borderRadius: '8px', padding: '0.75rem 1rem', margin: 0 },
   successBox: { backgroundColor: '#ffffff', borderRadius: '16px', padding: '3rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', textAlign: 'center', border: '1px solid #eeeeee' },
   successTitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: '#444444', margin: 0 },
   successText: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '0.95rem', color: '#727376', lineHeight: 1.7, margin: 0 },

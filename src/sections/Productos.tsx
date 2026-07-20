@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { PRODUCTS } from '../data/brand'
-import { Check, ArrowRight, MessageCircle, Send, Layers, Code2 } from 'lucide-react'
+import { Check, ArrowRight, ExternalLink, MessageCircle, Send, Layers, Code2 } from 'lucide-react'
 import InboxMock from '../components/InboxMock'
 import SenderMock from '../components/SenderMock'
 import BoxiumMock from '../components/BoxiumMock'
@@ -22,9 +22,10 @@ export default function Productos() {
   }, [])
 
   const product = PRODUCTS[activeTab]
+  const primaryCtaOpensWhatsApp = product.demoUrl.includes('wa.me')
 
   return (
-    <section id="productos" style={styles.section} ref={ref}>
+    <section id="productos" className="home-section home-products" style={styles.section} ref={ref}>
 
       {/* Encabezado — más compacto */}
       <div style={styles.header}>
@@ -59,7 +60,7 @@ export default function Productos() {
             <button key={p.id} onClick={() => setActiveTab(i)}
               style={{ ...styles.tab, ...(isActive ? styles.tabActive : {}) }}
               onMouseEnter={(e) => { if (!isActive) { (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'rgba(91,168,212,0.06)'; (e.currentTarget as HTMLButtonElement).style.borderColor = '#5BA8D4' } }}
-              onMouseLeave={(e) => { if (!isActive) { (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'transparent'; (e.currentTarget as HTMLButtonElement).style.borderColor = '#e5e5e5' } }}
+              onMouseLeave={(e) => { if (!isActive) { (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'rgba(255,255,255,0.48)'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(68,68,68,0.14)' } }}
             >
               <Icon size={17} color={isActive ? '#B7F38A' : '#5BA8D4'} strokeWidth={2} />
               <span style={styles.tabName}>{isMobile ? '' : p.name}</span>
@@ -97,16 +98,18 @@ export default function Productos() {
           </ul>
 
           {/* CTA contextual del producto */}
-          {product.cta && (
+          {product.cta && product.id !== 'inbox' && (
             <p style={styles.productCta}>{product.cta}</p>
           )}
 
           <div style={styles.panelCtas}>
             <a href={product.demoUrl} target="_blank" rel="noopener noreferrer" style={styles.ctaPrimary}
+              aria-label={product.id === 'inbox' ? 'Abrir en WhatsApp la demo de una inmobiliaria ficticia' : product.demoLabel}
               onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#9CD468'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)' }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#B7F38A'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)' }}
             >
-              <MessageCircle size={16} /> Ver demo
+              {primaryCtaOpensWhatsApp ? <MessageCircle size={16} /> : <ExternalLink size={16} />}
+              {product.demoLabel}
             </a>
             <a href="#contacto" style={styles.ctaSecondary}
               onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#444444'; (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff' }}
@@ -115,6 +118,10 @@ export default function Productos() {
               Quiero más info <ArrowRight size={15} />
             </a>
           </div>
+
+          {product.cta && product.id === 'inbox' && (
+            <p style={styles.demoNote}>{product.cta}</p>
+          )}
         </div>
 
         {/* Columna visual — se oculta en mobile */}
@@ -184,25 +191,25 @@ function CustomMock({ color }: { color: string }) {
 
 const styles: Record<string, React.CSSProperties> = {
   // ── Sección: padding top reducido de 5rem → 3rem
-  section: { backgroundColor: '#ffffff', padding: '3rem 1.5rem 3rem', position: 'relative', overflow: 'hidden' },
+  section: { backgroundColor: 'transparent', padding: '5rem 1.5rem 5.5rem', position: 'relative', overflow: 'hidden' },
 
   // ── Header: margin bottom reducido de 3rem → 1.5rem, subtítulo eliminado
   header: { maxWidth: '700px', margin: '0 auto 1.5rem', textAlign: 'center' },
-  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9CD468', marginBottom: '0.5rem' },
+  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 750, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#5f9342', marginBottom: '0.5rem' },
 
   // ── Título: font size levemente reducido, margin bottom achicado
   title: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(1.5rem, 3vw, 2.4rem)', color: '#444444', lineHeight: 1.15, margin: '0 0 0.75rem', letterSpacing: '-0.02em' },
-  titleAccent: { color: '#9CD468' },
+  titleAccent: { color: '#659b47' },
   brandLine: { width: '48px', height: '3px', background: 'linear-gradient(to right, #B7F38A, #5BA8D4)', borderRadius: '2px', margin: '0 auto 0', transformOrigin: 'left' },
 
   // ── Tabs: margin top reducido
   tabs: { display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', maxWidth: '900px', margin: '1.25rem auto 1.5rem' },
-  tab: { display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.25rem', borderRadius: '10px', border: '1.5px solid #e5e5e5', backgroundColor: 'transparent', cursor: 'pointer', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.88rem', color: '#4b4b4b', transition: 'all 0.2s ease' },
-  tabActive: { backgroundColor: '#444444', borderColor: '#444444', color: '#B7F38A' },
+  tab: { display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.25rem', borderRadius: '999px', border: '1px solid rgba(68,68,68,0.14)', backgroundColor: 'rgba(255,255,255,0.48)', cursor: 'pointer', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.88rem', color: '#4b4b4b', transition: 'all 0.2s ease', backdropFilter: 'blur(8px)' },
+  tabActive: { backgroundColor: '#3d3f3b', borderColor: '#3d3f3b', color: '#B7F38A', boxShadow: '0 7px 22px rgba(45,49,42,0.16)' },
   tabName: { whiteSpace: 'nowrap' },
 
   // ── Panel
-  panel: { maxWidth: '1100px', margin: '0 auto', display: 'grid', gap: '2rem', alignItems: 'center', backgroundColor: '#fafafa', borderRadius: '20px', padding: '2rem', border: '1px solid #eeeeee' },
+  panel: { maxWidth: '1100px', margin: '0 auto', display: 'grid', gap: '2.5rem', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.78)', borderRadius: '16px', padding: 'clamp(1.5rem, 3vw, 2.5rem)', border: '1px solid rgba(68,68,68,0.1)', boxShadow: '0 22px 64px rgba(52,58,48,0.09)', backdropFilter: 'blur(12px)' },
   panelLeft: { display: 'flex', flexDirection: 'column', gap: '0.85rem' },
   productBadge: { display: 'flex', alignItems: 'center', gap: '0.75rem' },
   productLabel: { fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.7rem', color: '#727376', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 },
@@ -216,12 +223,13 @@ const styles: Record<string, React.CSSProperties> = {
 
   // ── CTA contextual
   productCta: { fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.85rem', color: '#5BA8D4', margin: 0, fontStyle: 'italic' },
+  demoNote: { maxWidth: '560px', fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.72rem', color: '#85888b', lineHeight: 1.55, margin: '-0.15rem 0 0' },
 
   panelCtas: { display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '0.25rem' },
   ctaPrimary: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#B7F38A', color: '#444444', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.875rem', padding: '0.7rem 1.4rem', borderRadius: '8px', textDecoration: 'none', transition: 'background-color 0.2s ease, transform 0.2s ease' },
   ctaSecondary: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: 'transparent', color: '#444444', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.875rem', padding: '0.7rem 1.4rem', borderRadius: '8px', border: '1.5px solid #e5e5e5', textDecoration: 'none', transition: 'all 0.2s ease' },
   panelRight: { position: 'relative' },
-  productVisual: { backgroundColor: '#ffffff', borderRadius: '14px', border: '2px solid', overflow: 'hidden', boxShadow: '0 8px 40px rgba(0,0,0,0.08)' },
+  productVisual: { backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid', overflow: 'hidden', boxShadow: '0 18px 48px rgba(37,41,35,0.12)' },
   mockHeader: { display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 1rem', backgroundColor: '#f5f5f5', borderBottom: '1px solid #eee' },
   mockDots: { display: 'flex', gap: '0.3rem' },
   mockDot: { width: '10px', height: '10px', borderRadius: '50%', display: 'inline-block' },

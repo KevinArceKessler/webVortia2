@@ -26,7 +26,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section id="inicio" style={styles.section}>
+    <section id="inicio" className="home-section home-hero" style={styles.section}>
       {/* Grilla más densa */}
       <div style={styles.gridOverlay} aria-hidden="true" />
 
@@ -170,8 +170,8 @@ const styles: Record<string, React.CSSProperties> = {
   section: {
     position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column',
     alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
-    background: '#1a1a1a',
-    paddingTop: '72px',
+    background: 'linear-gradient(145deg, #292b28 0%, #343633 52%, #2e302d 100%)',
+    paddingTop: '84px',
   },
 
   // Grilla más densa
@@ -210,14 +210,14 @@ const styles: Record<string, React.CSSProperties> = {
   badge: {
     fontFamily: 'Montserrat, sans-serif', fontWeight: 700,
     fontSize: '1rem', letterSpacing: '0.14em', textTransform: 'uppercase',
-    color: 'rgba(183,243,138,0.6)',
+    color: 'rgba(183,243,138,0.82)',
   },
 
   headline: { margin: 0, lineHeight: 1.05, letterSpacing: '-0.025em' },
 
   headlineThin: {
     fontFamily: 'Montserrat, sans-serif', fontWeight: 300,
-    fontSize: 'clamp(2rem, 3.5vw, 4rem)', color: 'rgba(255,255,255,0.55)',
+    fontSize: 'clamp(2rem, 3.5vw, 4rem)', color: 'rgba(255,255,255,0.72)',
     display: 'block', fontStyle: 'italic',
   },
   headlineBold: {
@@ -228,7 +228,7 @@ const styles: Record<string, React.CSSProperties> = {
 
   subtitle: {
     fontFamily: 'Montserrat, sans-serif', fontWeight: 400,
-    fontSize: 'clamp(0.88rem, 1.4vw, 1rem)', color: 'rgba(255,255,255,0.45)',
+    fontSize: 'clamp(0.88rem, 1.4vw, 1rem)', color: 'rgba(255,255,255,0.64)',
     lineHeight: 1.8, margin: 0, maxWidth: '460px',
   },
 
@@ -238,16 +238,16 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
     backgroundColor: '#B7F38A', color: '#1a1a1a',
     fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.88rem',
-    padding: '0.85rem 1.75rem', borderRadius: '4px', textDecoration: 'none',
+    padding: '0.85rem 1.75rem', borderRadius: '8px', textDecoration: 'none',
     transition: 'background-color 0.2s ease, transform 0.2s ease',
     letterSpacing: '0.01em',
   },
 
   ctaSecondary: {
     display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-    backgroundColor: 'transparent', color: 'rgba(255,255,255,0.6)',
+    backgroundColor: 'transparent', color: 'rgba(255,255,255,0.76)',
     fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.88rem',
-    padding: '0.85rem 1.75rem', borderRadius: '4px',
+    padding: '0.85rem 1.75rem', borderRadius: '8px',
     border: '1px solid rgba(255,255,255,0.15)',
     textDecoration: 'none', transition: 'background-color 0.2s ease',
     letterSpacing: '0.01em',
@@ -258,8 +258,9 @@ const styles: Record<string, React.CSSProperties> = {
 
   card: {
     width: '100%', backgroundColor: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(183,243,138,0.12)', borderRadius: '4px',
-    overflow: 'hidden', backdropFilter: 'blur(8px)',
+    border: '1px solid rgba(183,243,138,0.16)', borderRadius: '12px',
+    overflow: 'hidden', backdropFilter: 'blur(12px)',
+    boxShadow: '0 24px 70px rgba(15,17,14,0.28)',
   },
 
   cardHeader: {
@@ -307,7 +308,7 @@ const styles: Record<string, React.CSSProperties> = {
   floatCard: {
     display: 'inline-flex', alignItems: 'center', gap: '0.75rem',
     backgroundColor: '#1f1f1f', border: '1px solid rgba(183,243,138,0.25)',
-    borderRadius: '4px', padding: '0.75rem 1.1rem',
+    borderRadius: '10px', padding: '0.75rem 1.1rem',
     boxShadow: '0 8px 40px rgba(0,0,0,0.5)',
     textDecoration: 'none', cursor: 'pointer', whiteSpace: 'nowrap',
     transform: 'rotate(-2deg)', alignSelf: 'flex-end', marginTop: '0.5rem',
@@ -325,7 +326,7 @@ const styles: Record<string, React.CSSProperties> = {
   scrollArrow: {
     position: 'absolute', bottom: '2rem', left: '50%', transform: 'translateX(-50%)', zIndex: 2,
     display: 'flex', alignItems: 'center', justifyContent: 'center',
-    width: '38px', height: '38px', borderRadius: '2px',
+    width: '38px', height: '38px', borderRadius: '10px',
     border: '1px solid rgba(183,243,138,0.2)', textDecoration: 'none',
   },
 }

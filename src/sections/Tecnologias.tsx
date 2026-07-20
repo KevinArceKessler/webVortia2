@@ -23,7 +23,7 @@ export default function Tecnologias() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="tecnologias" style={styles.section} ref={ref}>
+    <section id="tecnologias" className="home-section home-technologies" style={styles.section} ref={ref}>
 
       <motion.div style={styles.headerWrap}
         initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -67,16 +67,16 @@ export default function Tecnologias() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  section: { backgroundColor: '#444444', padding: '2.5rem 0', overflow: 'hidden' },
+  section: { backgroundColor: 'transparent', padding: '3rem 0 3.25rem', overflow: 'hidden' },
   headerWrap: { maxWidth: '700px', margin: '0 auto 1.5rem', textAlign: 'center', padding: '0 1.5rem' },
-  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 1000, fontSize: 'clamp(1.6rem, 7vw, 2.5rem)', letterSpacing: '0.06em', textTransform: 'uppercase', color: '#5BA8D4', marginBottom: '0.5rem' },
-  subtitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: 'clamp(0.95rem, 2.5vw, 1.2rem)', color: '#727376', lineHeight: 1.6, margin: 0 },
+  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 850, fontSize: 'clamp(1.35rem, 5vw, 2rem)', letterSpacing: '0.06em', textTransform: 'uppercase', color: '#B7F38A', marginBottom: '0.5rem' },
+  subtitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)', color: 'rgba(255,255,255,0.56)', lineHeight: 1.6, margin: 0 },
   carouselWrapper: { position: 'relative', width: '100%', overflow: 'hidden', padding: '0.5rem 0' },
-  fadeLeft: { position: 'absolute', left: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to right, #444444, transparent)', zIndex: 2, pointerEvents: 'none' },
-  fadeRight: { position: 'absolute', right: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to left, #444444, transparent)', zIndex: 2, pointerEvents: 'none' },
+  fadeLeft: { position: 'absolute', left: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to right, #3d3f3b, transparent)', zIndex: 2, pointerEvents: 'none' },
+  fadeRight: { position: 'absolute', right: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to left, #3d3f3b, transparent)', zIndex: 2, pointerEvents: 'none' },
   carouselTrack: { overflow: 'hidden' },
   carouselInner: { display: 'flex', gap: '1rem', width: 'max-content', animation: 'scroll-right 22s linear infinite' },
-  techChip: { display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0.65rem 1.25rem', backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid', borderRadius: '999px', flexShrink: 0 },
+  techChip: { display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0.65rem 1.25rem', backgroundColor: 'rgba(255,255,255,0.055)', border: '1px solid', borderRadius: '999px', flexShrink: 0, backdropFilter: 'blur(6px)' },
   techIcon: { fontSize: '1.1rem' },
   techName: { fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.85rem', color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' },
 }

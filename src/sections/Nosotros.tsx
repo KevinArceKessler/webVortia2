@@ -16,7 +16,7 @@ export default function Nosotros() {
   }, [])
 
   return (
-    <section id="nosotros" style={styles.section} ref={ref}>
+    <section id="nosotros" className="home-section home-about" style={styles.section} ref={ref}>
 
       {/* Línea fina decorativa arriba */}
       <div style={styles.topLine} aria-hidden="true" />
@@ -254,9 +254,6 @@ export default function Nosotros() {
         </svg>
 
         <div style={styles.highlightInner}>
-          <img src="/logo/isotipo.png" alt="" style={{ height: '28px', width: 'auto', opacity: 0.5 }}
-            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
-          />
           <p style={styles.highlightText}>
             No somos un proveedor más.<br />
             Somos el <span style={{ color: '#B7F38A' }}>equipo de tecnología</span><br />
@@ -269,9 +266,9 @@ export default function Nosotros() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  section: { position: 'relative', backgroundColor: '#ffffff', overflow: 'hidden', paddingBottom: 0 },
+  section: { position: 'relative', backgroundColor: 'transparent', overflow: 'hidden', paddingBottom: 0 },
 
-  topLine: { position: 'absolute', top: 0, left: '5%', right: '5%', height: '1px', backgroundColor: '#eeeeee' },
+  topLine: { position: 'absolute', top: 0, left: '5%', right: '5%', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(183,243,138,0.55), rgba(91,168,212,0.25), transparent)' },
 
   bgNumber: {
     position: 'absolute', top: '-5%', right: '-2%',
@@ -317,27 +314,28 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'inline-flex', alignItems: 'center',
     backgroundColor: '#B7F38A', color: '#1a1a1a',
     fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.85rem',
-    padding: '0.8rem 1.5rem', borderRadius: '4px', border: 'none',
+    padding: '0.8rem 1.5rem', borderRadius: '8px', border: 'none',
     cursor: 'pointer', transition: 'background-color 0.2s ease',
   },
   ctaSecondary: {
     display: 'inline-flex', alignItems: 'center',
     fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.85rem',
     color: '#9ca3af', padding: '0.8rem 1.25rem',
-    borderRadius: '4px', border: '1px solid #cccccc',
+    borderRadius: '8px', border: '1px solid #cccccc',
     textDecoration: 'none', transition: 'border-color 0.2s ease, color 0.2s ease',
   },
 
   valuesCol: { display: 'flex', flexDirection: 'column', gap: '0.75rem', position: 'relative', zIndex: 1 },
   valueCard: {
     display: 'flex', alignItems: 'flex-start', gap: '1rem', padding: '1.25rem 1.5rem',
-    backgroundColor: '#ffffff', border: '1px solid #e5e5e5',
-    borderRadius: '2px', cursor: 'default',
+    backgroundColor: 'rgba(255,255,255,0.7)', border: '1px solid rgba(68,68,68,0.1)',
+    borderRadius: '12px', cursor: 'default',
+    boxShadow: '0 10px 30px rgba(47,52,43,0.045)', backdropFilter: 'blur(8px)',
     transition: 'border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease',
   },
   valueBadge: {
-    flexShrink: 0, width: '40px', height: '40px', borderRadius: '2px',
-    backgroundColor: '#B7F38A',
+    flexShrink: 0, width: '40px', height: '40px', borderRadius: '10px',
+    background: 'linear-gradient(135deg, #B7F38A, #F1FEA3)',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
     transition: 'background-color 0.25s ease',
   },
@@ -371,11 +369,11 @@ const styles: Record<string, React.CSSProperties> = {
   teamGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.75rem', marginTop: '1.5rem' },
   memberCard: {
     display: 'flex', alignItems: 'flex-start', gap: '0.75rem',
-    backgroundColor: '#fafafa', border: '1px solid #eeeeee',
-    borderRadius: '2px', padding: '1.1rem',
+    backgroundColor: 'rgba(255,255,255,0.72)', border: '1px solid rgba(68,68,68,0.09)',
+    borderRadius: '10px', padding: '1.1rem',
   },
   avatar: {
-    width: '34px', height: '34px', borderRadius: '2px',
+    width: '34px', height: '34px', borderRadius: '9px',
     backgroundColor: '#1a1a1a',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
     fontFamily: 'Montserrat, sans-serif', fontWeight: 800, fontSize: '0.7rem',
@@ -385,9 +383,9 @@ const styles: Record<string, React.CSSProperties> = {
   memberRole: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '0.75rem', color: '#9ca3af', lineHeight: 1.4, margin: '0 0 0.35rem' },
   memberLink: { fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '0.72rem', color: '#B7F38A', textDecoration: 'none' },
 
-  highlight: { position: 'relative', backgroundColor: '#1a1a1a', padding: '2rem 1.5rem', overflow: 'hidden' },
-  highlightGlow: { position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(183,243,138,0.3), rgba(91,168,212,0.3), transparent)', opacity: 0.6 },
+  highlight: { position: 'relative', background: 'linear-gradient(145deg, #292b28 0%, #343633 52%, #2e302d 100%)', padding: '2.35rem 1.5rem', overflow: 'hidden' },
+  highlightGlow: { position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(91,168,212,0.35), rgba(183,243,138,0.45), transparent)', opacity: 0.8 },
   highlightWaves: { position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' },
   highlightInner: { position: 'relative', zIndex: 1, maxWidth: '700px', margin: '0 auto', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' },
-  highlightText: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: 'clamp(1rem, 2vw, 1.5rem)', color: '#ffffff', lineHeight: 1.5, margin: 0, letterSpacing: '-0.01em' },
+  highlightText: { fontFamily: 'Montserrat, sans-serif', fontWeight: 750, fontSize: 'clamp(1rem, 2vw, 1.5rem)', color: '#ffffff', lineHeight: 1.5, margin: 0, letterSpacing: '-0.01em' },
 }

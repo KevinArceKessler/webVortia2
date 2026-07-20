@@ -49,7 +49,7 @@ export default function Footer() {
         <div style={styles.col}>
           <h4 style={styles.colTitle}>Productos</h4>
           {PRODUCTS.map(p => (
-            <a key={p.id} href="#productos" style={styles.link}
+            <a key={p.id} href="/#productos" style={styles.link}
               onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#5BA8D4' }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#727376' }}
             >{p.emoji} {p.name}</a>
@@ -60,11 +60,10 @@ export default function Footer() {
         <div style={styles.col}>
           <h4 style={styles.colTitle}>Empresa</h4>
           {[
-            { label: 'Inicio', href: '#inicio' },
-            { label: 'Quiénes somos', href: '#nosotros' },
-            { label: 'Clientes', href: '#clientes' },
-            /*{ label: 'Demos', href: '#demos' },*/
-            { label: 'Contacto', href: '#contacto' },
+            { label: 'Inicio', href: '/#inicio' },
+            { label: 'Quiénes somos', href: '/#nosotros' },
+            { label: 'Clientes', href: '/#clientes' },
+            { label: 'Contacto', href: '/#contacto' },
           ].map((item, i) => (
             <a key={i} href={item.href} style={styles.link}
               onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#5BA8D4' }}
@@ -94,13 +93,17 @@ export default function Footer() {
 
       <div style={styles.bottom}>
         <p style={styles.copy}>© {year} Vortia S.R.L. — Todos los derechos reservados.</p>
+        <div style={styles.legalLinks}>
+          <a href="/privacidaddatos" style={styles.bottomLink}>Política de privacidad</a>
+          <a href="/terminoscondiciones" style={styles.bottomLink}>Términos y condiciones</a>
+        </div>
       </div>
     </footer>
   )
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  footer: { backgroundColor: '#333333', padding: '4rem 1.5rem 0', borderTop: '1px solid rgba(255,255,255,0.05)' },
+  footer: { background: 'linear-gradient(#30322f, #30322f) padding-box, linear-gradient(90deg, #5BA8D4, #B7F38A, #F1FEA3) border-box', padding: '4rem 1.5rem 0', borderTop: '2px solid transparent' },
   container: { maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2.5rem', paddingBottom: '3rem' },
   col: { display: 'flex', flexDirection: 'column', gap: '0.75rem' },
   logoText: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: '1.5rem', color: '#ffffff', letterSpacing: '0.05em', margin: 0 },
@@ -115,4 +118,6 @@ const styles: Record<string, React.CSSProperties> = {
   accentLine: { height: '2px', background: 'linear-gradient(90deg, transparent, #5BA8D4, #B7F38A, #F1FEA3, #B7F38A, #5BA8D4, transparent)', maxWidth: '1100px', margin: '0 auto', opacity: 0.5 },
   bottom: { borderTop: '1px solid rgba(255,255,255,0.04)', padding: '1.5rem 0', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', maxWidth: '1100px', margin: '0 auto' },
   copy: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '0.78rem', color: '#727376', margin: 0 },
+  legalLinks: { display: 'flex', gap: '1rem', flexWrap: 'wrap' },
+  bottomLink: { fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.78rem', color: '#9ca3af', textDecoration: 'none' },
 }

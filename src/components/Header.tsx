@@ -4,12 +4,11 @@ import { BRAND } from '../data/brand'
 
 // Links de navegación — editá los labels o agregá más acá
 const NAV_LINKS = [
-  { label: 'Inicio', href: '#inicio' },
-  { label: 'Nosotros', href: '#nosotros' },
-  { label: 'Productos', href: '#productos' },
-  { label: 'Clientes', href: '#clientes' },
-  /*{ label: 'Demos', href: '#demos' },*/
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Inicio', href: '/#inicio' },
+  { label: 'Nosotros', href: '/#nosotros' },
+  { label: 'Productos', href: '/#productos' },
+  { label: 'Clientes', href: '/#clientes' },
+  { label: 'Contacto', href: '/#contacto' },
 ]
 
 export default function Header() {
@@ -36,7 +35,7 @@ export default function Header() {
         <div style={styles.inner}>
 
           {/* ── LOGO ── */}
-          <a href="#inicio" style={styles.logo} onClick={handleNavClick}>
+          <a href="/#inicio" style={styles.logo} onClick={handleNavClick}>
             <img
               src="/logo/logo-horizontal.png"
               alt="Vortia — El aliado tecnológico de tu empresa"
@@ -68,10 +67,10 @@ export default function Header() {
                 href={link.href}
                 style={styles.navLink}
                 onMouseEnter={(e) => {
-                  ;(e.currentTarget as HTMLAnchorElement).style.color = '#B7F38A'
+                  ;(e.currentTarget as HTMLAnchorElement).style.color = '#347da7'
                 }}
                 onMouseLeave={(e) => {
-                  ;(e.currentTarget as HTMLAnchorElement).style.color = '#cecece'
+                  ;(e.currentTarget as HTMLAnchorElement).style.color = '#30322f'
                 }}
               >
                 {link.label}
@@ -107,9 +106,9 @@ export default function Header() {
             aria-expanded={menuOpen}
           >
             {menuOpen ? (
-              <X size={24} color="#B7F38A" />
+              <X size={24} color="#444444" />
             ) : (
-              <Menu size={24} color="#B7F38A" />
+              <Menu size={24} color="#444444" />
             )}
           </button>
         </div>
@@ -171,21 +170,26 @@ export default function Header() {
 const styles = {
   header: (scrolled: boolean): React.CSSProperties => ({
     position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
+    top: '0.75rem',
+    left: 'clamp(0.5rem, 2vw, 1.5rem)',
+    right: 'clamp(0.5rem, 2vw, 1.5rem)',
     zIndex: 1000,
-    transition: 'background-color 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease',
-    backgroundColor: scrolled ? 'rgba(68, 68, 68, 0.95)' : 'transparent',
-    backdropFilter: scrolled ? 'blur(12px)' : 'none',
-    boxShadow: scrolled ? '0 1px 0 rgba(183, 243, 138, 0.15)' : 'none',
+    transition: 'background-color 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
+    backgroundColor: scrolled ? 'rgba(250, 252, 247, 0.58)' : 'rgba(248, 251, 245, 0.28)',
+    backdropFilter: 'blur(22px) saturate(150%)',
+    WebkitBackdropFilter: 'blur(22px) saturate(150%)',
+    boxShadow: scrolled
+      ? '0 12px 36px rgba(31, 35, 29, 0.13), inset 0 1px 0 rgba(255,255,255,0.26)'
+      : '0 8px 28px rgba(20, 24, 18, 0.12)',
+    border: scrolled ? '1px solid rgba(68, 68, 68, 0.08)' : '1px solid rgba(255, 255, 255, 0.08)',
+    borderRadius: '14px',
   }),
 
   inner: {
     maxWidth: '1200px',
     margin: '0 auto',
     padding: '0 1.5rem',
-    height: '72px',
+    height: '68px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -213,9 +217,9 @@ const styles = {
 
   navLink: {
     fontFamily: 'Montserrat, sans-serif',
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: '0.88rem',
-    color: '#cecece',
+    color: '#30322f',
     textDecoration: 'none',
     padding: '0.5rem 0.75rem',
     borderRadius: '6px',
@@ -241,11 +245,12 @@ const styles = {
     flexShrink: 0,
     letterSpacing: '0.02em',
     whiteSpace: 'nowrap',
+    boxShadow: '0 5px 16px rgba(89, 118, 67, 0.16)',
   } as React.CSSProperties,
 
   hamburger: {
-    background: 'none',
-    border: 'none',
+    background: 'rgba(255,255,255,0.34)',
+    border: '1px solid rgba(68,68,68,0.08)',
     cursor: 'pointer',
     padding: '0.5rem',
     display: 'flex',
@@ -257,7 +262,7 @@ const styles = {
 
   drawer: (open: boolean): React.CSSProperties => ({
     position: 'fixed',
-    top: '72px',
+    top: '82px',
     left: 0,
     right: 0,
     bottom: 0,

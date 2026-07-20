@@ -1,12 +1,12 @@
 import { useEffect, useState, useRef } from 'react'
 
 const MESSAGES = [
-  { from: 'cliente', text: 'che, cómo venimos con los objetivos de este mes?' },
-  { from: 'boxium', text: 'Llevan el 68% del objetivo de ventas 📊 Quedan 8 días y $42.000 para la meta. Hay 3 oportunidades en etapa de cierre que pueden definirlo.' },
-  { from: 'cliente', text: 'bien! Asentame el pago de la factura de luz, $18.500' },
-  { from: 'boxium', text: 'Listo ✅ Registré un gasto de $18.500 en "Servicios — Electricidad". ¿Lo asocio a algún proyecto o lo dejo como gasto general?' },
-  { from: 'cliente', text: 'gasto general está bien' },
-  { from: 'boxium', text: 'Perfecto, quedó asentado 👍' },
+  { from: 'cliente', text: '¿Cómo venimos esta semana en Nueva Córdoba?' },
+  { from: 'boxium', text: 'Hasta hoy: $2.430.000 de ingresos, 126 servicios y un ticket promedio de $19.286. Están $330.000 arriba de la proyección 📈' },
+  { from: 'cliente', text: 'Bien. ¿Hay clientes en riesgo de no volver?' },
+  { from: 'boxium', text: 'Sí. Detecté 4 clientes en riesgo por su frecuencia de visita y 3 cumpleaños próximos. Podés verlos en Fidelización para contactarlos por WhatsApp.' },
+  { from: 'cliente', text: '¿Y qué día viene más flojo?' },
+  { from: 'boxium', text: 'Los martes tienen el menor promedio de servicios del período. Podría ser un buen día para activar una campaña de recuperación.' },
 ]
 
 const MSG_DELAY = 1800

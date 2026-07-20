@@ -95,27 +95,36 @@ export default function Clientes() {
   }, [])
 
   const maxIndex = TESTIMONIOS.length - visible
+  const safeSliderIndex = Math.min(sliderIndex, maxIndex)
+
+  const prev = () => setSliderIndex(i => {
+    const current = Math.min(i, maxIndex)
+    return current === 0 ? maxIndex : current - 1
+  })
+  const next = () => setSliderIndex(i => {
+    const current = Math.min(i, maxIndex)
+    return current === maxIndex ? 0 : current + 1
+  })
 
   useEffect(() => {
-    setSliderIndex(i => Math.min(i, maxIndex))
-  }, [maxIndex])
+    if (!modalOpen) return
 
-  const prev = () => setSliderIndex(i => (i === 0 ? maxIndex : i - 1))
-  const next = () => setSliderIndex(i => (i === maxIndex ? 0 : i + 1))
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = previousOverflow }
+  }, [modalOpen])
 
   const openModal = (t: typeof TESTIMONIOS[0]) => {
     setSelected(t)
     setModalOpen(true)
-    document.body.style.overflow = 'hidden'
   }
 
   const closeModal = () => {
     setModalOpen(false)
-    document.body.style.overflow = ''
   }
 
   return (
-    <section id="clientes" style={styles.section} ref={ref}>
+    <section id="clientes" className="home-section home-clients" style={styles.section} ref={ref}>
 
       {/* ── Encabezado ── */}
       <div style={styles.headerWrap}>
@@ -184,7 +193,7 @@ export default function Clientes() {
           <div style={styles.sliderViewport}>
             <motion.div
               style={{ ...styles.sliderTrack, width: `${(TESTIMONIOS.length / visible) * 100}%` }}
-              animate={{ x: `-${sliderIndex * (100 / TESTIMONIOS.length)}%` }}
+              animate={{ x: `-${safeSliderIndex * (100 / TESTIMONIOS.length)}%` }}
               transition={{ duration: 0.4, ease: 'easeInOut' }}
             >
               {TESTIMONIOS.map((t, i) => (
@@ -308,21 +317,21 @@ export default function Clientes() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  section: { backgroundColor: '#f8f8f8', padding: '6rem 0 5rem', position: 'relative', overflow: 'hidden' },
+  section: { backgroundColor: 'transparent', padding: '5.5rem 0 6rem', position: 'relative', overflow: 'hidden' },
   headerWrap: { maxWidth: '860px', margin: '0 auto 2rem', textAlign: 'center', padding: '0 1.5rem' },
-  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.92rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9CD468', marginBottom: '1rem' },
+  label: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontWeight: 750, fontSize: '0.82rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#5f9342', marginBottom: '1rem' },
   title: { fontFamily: 'Montserrat, sans-serif', fontWeight: 900, fontSize: 'clamp(2.2rem, 5vw, 3.8rem)', color: '#444444', lineHeight: 1.1, margin: '0 0 1.25rem', letterSpacing: '-0.03em' },
-  titleAccent: { color: '#9CD468' },
+  titleAccent: { color: '#659b47' },
   brandLine: { width: '56px', height: '3px', background: 'linear-gradient(to right, #B7F38A, #5BA8D4)', borderRadius: '2px', margin: '0 auto 1.5rem', transformOrigin: 'left' },
   subtitle: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: 'clamp(1rem, 1.8vw, 1.15rem)', color: '#727376', lineHeight: 1.8, margin: 0, maxWidth: '620px', marginLeft: 'auto', marginRight: 'auto' },
 
   // Carrusel
   carouselWrapper: { position: 'relative', width: '100%', overflow: 'hidden', marginBottom: '5rem', padding: '1rem 0' },
-  fadeLeft: { position: 'absolute', left: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to right, #f8f8f8, transparent)', zIndex: 2, pointerEvents: 'none' },
-  fadeRight: { position: 'absolute', right: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to left, #f8f8f8, transparent)', zIndex: 2, pointerEvents: 'none' },
+  fadeLeft: { position: 'absolute', left: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to right, rgba(240,243,235,1), rgba(240,243,235,0))', zIndex: 2, pointerEvents: 'none' },
+  fadeRight: { position: 'absolute', right: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to left, rgba(240,243,235,1), rgba(240,243,235,0))', zIndex: 2, pointerEvents: 'none' },
   carouselTrack: { overflow: 'hidden' },
   carouselInner: { display: 'flex', gap: '1.25rem', width: 'max-content', animation: 'scroll-left 30s linear infinite' },
-  carouselItem: { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.6rem', padding: '1.5rem', backgroundColor: '#444444', border: '1px solid #444444', borderRadius: '14px', whiteSpace: 'nowrap', flexShrink: 0, minWidth: '160px', boxShadow: '0 2px 12px rgba(0,0,0,0.12)' },
+  carouselItem: { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.6rem', padding: '1.5rem', backgroundColor: '#3d3f3b', border: '1px solid rgba(183,243,138,0.14)', borderRadius: '12px', whiteSpace: 'nowrap', flexShrink: 0, minWidth: '160px', boxShadow: '0 10px 28px rgba(38,42,36,0.13)' },
   carouselInfo: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.15rem' },
   carouselName: { fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '0.78rem', color: '#B7F38A', margin: 0, textAlign: 'center' },
   carouselIndustry: { fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '0.65rem', color: '#cccccc', margin: 0, textAlign: 'center' },
@@ -344,7 +353,7 @@ const styles: Record<string, React.CSSProperties> = {
   sliderDot: { width: '8px', height: '8px', borderRadius: '50%', border: 'none', cursor: 'pointer', transition: 'background-color 0.2s ease', padding: 0 },
 
   // Cards de testimonios
-  testimonioCard: { display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1.5rem', backgroundColor: '#ffffff', border: '1px solid #e5e5e5', borderRadius: '16px', cursor: 'pointer', textAlign: 'left', transition: 'all 0.25s ease', boxShadow: '0 4px 16px rgba(0,0,0,0.08)', fontFamily: 'Montserrat, sans-serif', width: '100%', height: '100%' },
+  testimonioCard: { display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1.5rem', backgroundColor: 'rgba(255,255,255,0.76)', border: '1px solid rgba(68,68,68,0.1)', borderRadius: '14px', cursor: 'pointer', textAlign: 'left', transition: 'all 0.25s ease', boxShadow: '0 12px 34px rgba(45,50,42,0.075)', backdropFilter: 'blur(8px)', fontFamily: 'Montserrat, sans-serif', width: '100%', height: '100%' },
   testimonioQuoteIcon: { display: 'flex' },
   testimoniofrase: { fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '0.88rem', color: '#444444', lineHeight: 1.65, margin: 0, flex: 1 },
   testimonioAutor: { display: 'flex', alignItems: 'center', gap: '0.75rem' },
